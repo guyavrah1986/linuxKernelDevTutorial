@@ -906,9 +906,6 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
 asmlinkage long sys_rseq(struct rseq __user *rseq, uint32_t rseq_len,
 			 int flags, uint32_t sig);
 
-// GuyA: Added here the system call decleration
-asmlinkage long sys_getProcessInfo(char __user *buff, size_t buffsz);
-
 /*
  * Architecture-specific system calls
  */

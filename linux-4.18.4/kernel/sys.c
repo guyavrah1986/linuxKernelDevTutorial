@@ -2582,11 +2582,6 @@ SYSCALL_DEFINE1(sysinfo, struct sysinfo __user *, info)
 	return 0;
 }
 
-SYSCALL_DEFINE0(guysyscall, int, arg1)
-{
-	return arg1 * 2;
-}
-
 #ifdef CONFIG_COMPAT
 struct compat_sysinfo {
 	s32 uptime;
