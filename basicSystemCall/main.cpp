@@ -18,10 +18,8 @@ int main(int argc, char** argv)
 	cout << "PID is:" << pid << endl;;
 	 
 	//Call our syscall
-	long res = 7;
-	char* buff = NULL;
-	size_t buffSize = 5;	
-	res = syscall(MY_SYS_CALL_NR, buff, buffSize);
+	long res = 0;	
+	res = syscall(MY_SYS_CALL_NR);
 	cout << "res is:" << res << endl;
 	cout << "main - end" << endl;
 	return 0;
