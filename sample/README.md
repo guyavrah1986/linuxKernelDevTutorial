@@ -3,3 +3,6 @@ This repository contains basic operating system level capabilities under Linux O
 
 It secondary purpose is to practice CI/CD capabilties via Jenkins. 
 
+# Preperations:
+1. Install boost: See the following answer: https://stackoverflow.com/a/23668329/1971003
+
