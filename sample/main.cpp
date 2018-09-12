@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "globalInclude.h"
 
@@ -13,7 +14,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-
+	unique_ptr<int> p;
 	cout << "main - end" << endl;
 	return 0;
 }
