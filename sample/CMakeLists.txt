@@ -39,7 +39,7 @@ file(GLOB_RECURSE BCP_MAIN_EXE_SRC "${CMAKE_CURRENT_LIST_DIR}/main.cpp")
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils/ ${CMAKE_CURRENT_LIST_DIR}/build/utils)
 
 # handlers
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/ ${CMAKE_CURRENT_LIST_DIR}/build/src/handlers)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/src/handlers ${CMAKE_CURRENT_LIST_DIR}/build/src/handlers)
 
 # unitTests
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/unitTests ${CMAKE_CURRENT_LIST_DIR}/build/unitTests)
@@ -55,4 +55,4 @@ add_executable(mainExe ${BCP_MAIN_EXE_SRC})
 # link the main executable with all relevant libraries
 # ======================================================================================================================================
                  
-target_link_libraries(mainExe handlersLib utilsLib)
+target_link_libraries(mainExe handlersLib utilsLib glog)

@@ -12,12 +12,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-#include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir)
 
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
-file(GLOB_RECURSE ALL_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp") 
+file(GLOB_RECURSE HANDLERS_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+			       "${CMAKE_CURRENT_LIST_DIR}/*.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
@@ -25,13 +26,12 @@ file(GLOB_RECURSE ALL_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp")
 
 
 # ======================================================================================================================================
-# create the library executable
+# create the library 
 # ======================================================================================================================================
+add_library(handlersLib SHARED ${BCP_MAIN_EXE_SRC})
 
-add_executable(mainExe ${BCP_MAIN_EXE_SRC})
    
 # ======================================================================================================================================
-# link the main executable with all relevant libraries
+# link the library with all other relevant libraries
 # ======================================================================================================================================
-                 
-target_link_libraries(mainExe utilsLib)
+# target_link_libraries(handlersLib )

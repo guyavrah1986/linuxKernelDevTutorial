@@ -5,6 +5,10 @@ It secondary purpose is to practice CI/CD capabilties via Jenkins.
 
 # Preperations:
 1. Install boost: See the following answer: https://stackoverflow.com/a/23668329/1971003
+2. Installing and using the GLog logger library from Google:
+	- follow this short tutorial: https://codeyarns.com/2017/10/26/how-to-install-and-use-glog/
+	- Also, for every target (exe/lib) that needs to use the log, link it against glog (in the target_link_libraries CMake's command).
+	In case you wish to build it and use it via CMake: https://stackoverflow.com/questions/30014760/building-google-glog-with-cmake-on-linux
 
 # Repository structure (within the root folder):
 1. build: The output of the build procedure (this folder is ignored by Git). 
