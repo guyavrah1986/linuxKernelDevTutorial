@@ -14,9 +14,17 @@ echo "--------------------------------------------------"
 cmake_file_full_path=$1
 echo "Got CMakeLists.txt full path:$cmake_file_full_path"
 
+#delete the project's logs folder and create it again empty of any content
+proj_folder="/tmp/guyProj"
+echo "deleting the project's folder:$proj_folder"
+sudo rm -rf $proj_folder
+echo "re-creating the project's folder:$proj_folder"
+mkdir $proj_folder
+
 curr_dir=$(dirname $0)
 echo "The working directory (where this script is at):$curr_dir"
 
+# delete the build folder from (potential) older content
 echo "Deleting all content of the current build folder (not the folder itself)"
 sudo rm -rf ./*
 
