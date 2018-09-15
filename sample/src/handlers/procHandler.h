@@ -14,7 +14,7 @@ public:
 	virtual ~ProcHandler();
 
 private:
-	Result addProcessDetaliesToMap(ProcessDetailes&& procDetailes);
+	Result addProcessDetaliesToMap(const std::string& procExeName, ProcessDetailes&& procDetailes);
 
 private:
 	std::map<std::string, ProcessDetailes> m_processExeNameToProcessDetailesMap;
