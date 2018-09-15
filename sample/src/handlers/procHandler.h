@@ -3,13 +3,7 @@
 #include <map>
 
 #include "globalInclude.h"
-
-struct ProcessDetailes
-{
-	unsigned long int pid;
-	unsigned long int parentPid;
-};
-
+#include "procDetailes.h"
 
 class ProcHandler
 {
