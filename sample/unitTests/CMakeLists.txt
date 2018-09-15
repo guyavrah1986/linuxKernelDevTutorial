@@ -26,11 +26,10 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir)
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
-
-# Add the ThreadBase class's relevant list of tests
-#file(GLOB_RECURSE HS_SRC_THREAD_BASE_GTESTS
-#    "${CMAKE_CURRENT_LIST_DIR}/threadBaseTests/*.cpp"
-#    "${CMAKE_CURRENT_LIST_DIR}/threadBaseTests/*.h") 
+# 
+file(GLOB_RECURSE PROC_HANDLER_UNIT_TESTS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.h") 
 
 
 # ======================================================================================================================================
@@ -44,21 +43,21 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LI
 # create the unit tests executables
 # ======================================================================================================================================
 
-#add_executable(threadBaseUnitTests ${HS_SRC_THREAD_BASE_GTESTS})
+add_executable(procHandlerUnitTestsExe ${PROC_HANDLER_UNIT_TESTS_SRC})
 
 
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-#target_link_libraries(threadBaseUnitTests gtest gtest_main memoryLeakDetectorLib)
+target_link_libraries(procHandlerUnitTestsExe gtest gtest_main memoryLeakDetectorLib)
 
 
 # ======================================================================================================================================
-# GTest realted settings
+# GTest realted settings for the unit test exe
 # ======================================================================================================================================
 
-#add_test(threadBaseUnitTests threadBaseUnitTests)
+add_test(procHandlerUnitTestsExe procHandlerUnitTestsExe)
 
 
 
