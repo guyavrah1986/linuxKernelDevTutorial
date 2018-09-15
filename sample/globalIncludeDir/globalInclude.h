@@ -21,11 +21,9 @@ enum class ErrorCode
 {
 	ERROR_CODE_SUCCESS = 0,
 	ERROR_CODE_INVALID_NUMBER_OF_ARGS,
+	ERROR_CODE_INVALID_ARGS,
 	ERROR_CODE_GENERAL_FAUILRE
 };
-
-
-const char* GLOG_INFO_LEVEL_LOG_PATH = "/tmp/guyExe/INFO_log";
 
 // ====================================================================================
 // GENRAL PURPOSE OBJECTS

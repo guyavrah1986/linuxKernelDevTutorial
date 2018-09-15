@@ -10,25 +10,25 @@ message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within fo
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/../utils)
 
 # ======================================================================================================================================
 # group all different utilities into their own group
 # ======================================================================================================================================
 
 # configuration manager
-file(GLOB_RECURSE BCP_CONF_MGR_SRC
-    "${CMAKE_CURRENT_LIST_DIR}/configurationManager.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/configurationManager.h")
+file(GLOB_RECURSE UTILS_SRC
+    "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+    "${CMAKE_CURRENT_LIST_DIR}/*.h")
 
 # ======================================================================================================================================
 # create the different utilities as seperated executables
 # ======================================================================================================================================
-add_library(utilsLib ${BCP_CONF_MGR_SRC})
+add_library(utilsLib ${UTILS_SRC})
 
 # ======================================================================================================================================
 # link the utilities with all other needed libraries
 # ======================================================================================================================================
-# target_link_libraries(utilsLib pthread)
+target_link_libraries(utilsLib glog)
 
                     

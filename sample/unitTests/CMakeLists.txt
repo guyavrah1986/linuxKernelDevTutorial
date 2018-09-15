@@ -50,7 +50,7 @@ add_executable(procHandlerUnitTestsExe ${PROC_HANDLER_UNIT_TESTS_SRC})
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-target_link_libraries(procHandlerUnitTestsExe gtest gtest_main memoryLeakDetectorLib)
+target_link_libraries(procHandlerUnitTestsExe gtest utilsLib memoryLeakDetectorLib)
 
 
 # ======================================================================================================================================

@@ -1,26 +1,9 @@
 #include <iostream>
 #include <memory>
-#include <glog/logging.h>
 
-#include "globalInclude.h"
+#include "utils.h"
 
 using namespace std;
-
-Result handleCommandLineArgs(int argc, char** argv)
-{
-	if (argc != NumOfCommandLineArgs)
-	{
-		return Result(ErrorCode::ERROR_CODE_INVALID_NUMBER_OF_ARGS);
-	}
-
-	return Result(ErrorCode::ERROR_CODE_SUCCESS);
-}
-
-void setGlog(const char* argv0)
-{
-    google::SetLogDestination(google::GLOG_INFO, GLOG_INFO_LEVEL_LOG_PATH);
-	google::InitGoogleLogging(argv0);
-}
 
 int main(int argc, char** argv)
 {
@@ -31,12 +14,21 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	setGlog(argv[0]);
+	const char* GLOG_INFO_LEVEL_LOG_PATH = "/tmp/guyProj/exe_INFO_log";
+	if (setGlog(argv[0], google::GLOG_INFO, GLOG_INFO_LEVEL_LOG_PATH).IsSuccess() == false)
+	{
+		cerr << "main - invalid arguments provided" << endl;
+		return 1;
+	}
 
+
+	// TODO: sanity (remove later) !!
 	LOG(INFO) << "This is an info  message";
-
-
 	unique_ptr<int> p;
+
+
+
+
 	cout << "main - end" << endl;
 	return 0;
 }

@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/utils)
 
 # ======================================================================================================================================
 # group all source files of the executable
