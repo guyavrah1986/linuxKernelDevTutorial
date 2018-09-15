@@ -10,7 +10,6 @@ Result handleCommandLineArgs(int argc, char** argv)
 {
 	if (argc != NumOfCommandLineArgs)
 	{
-		cerr << "main - not enough arguments provided, excpecting:" << NumOfCommandLineArgs << endl;
 		return Result(ErrorCode::ERROR_CODE_INVALID_NUMBER_OF_ARGS);
 	}
 
@@ -26,8 +25,14 @@ void setGlog(const char* argv0)
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-	handleCommandLineArgs(argc, argv);
+	if (handleCommandLineArgs(argc, argv).IsSuccess() == false)
+	{
+		cerr << "main - not enough arguments provided, excpecting:" << NumOfCommandLineArgs << endl;
+		return 1;
+	}
+
 	setGlog(argv[0]);
+
 	LOG(INFO) << "This is an info  message";
 
 
