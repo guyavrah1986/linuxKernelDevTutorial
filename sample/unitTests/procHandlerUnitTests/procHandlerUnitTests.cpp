@@ -32,3 +32,8 @@ TEST_F(ProcHandlerUnitTests, test1)
 {
 	cout << "ProcHandlerUnitTests::test1" << endl;
 }
+
+TEST_F(ProcHandlerUnitTests, test2)
+{
+	cout << "ProcHandlerUnitTests::test2" << endl;
+}
