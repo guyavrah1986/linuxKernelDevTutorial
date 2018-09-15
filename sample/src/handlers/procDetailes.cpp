@@ -21,7 +21,6 @@ ProcessDetailes::ProcessDetailes(long int pid, long int parentPid)
 	LOG(INFO) << "ProcessDetailes::ProcessDetailes - set m_pid:" << m_pid << " and m_parentPid:" << m_parentPid;
 }
 
-
 ProcessDetailes::~ProcessDetailes()
 {
 	LOG(INFO) << "ProcessDetailes::~ProcessDetailes - deleted m_pid:" << m_pid << " and m_parentPid:" << m_parentPid;
@@ -46,4 +45,26 @@ ProcessDetailes& ProcessDetailes::operator=(const ProcessDetailes& rhs)
 	this->m_parentPid = rhs.m_parentPid;
 	return *this;
 }
+
+ProcessDetailes::ProcessDetailes(ProcessDetailes&& other)
+{
+	LOG(INFO) << "ProcessDetailes::ProcessDetailes(move)";
+	moveDataMembersValues(other);
+}
+
+ProcessDetailes& ProcessDetailes::operator=(ProcessDetailes&& rhs)
+{
+	LOG(INFO) << "ProcessDetailes::operator=(move)";
+	moveDataMembersValues(rhs);
+	return *this;
+}
+
+void ProcessDetailes::moveDataMembersValues(const ProcessDetailes& movedInstance)
+{
+	this->m_pid = movedInstance.m_pid;
+	this->m_parentPid = movedInstance.m_parentPid;
+	movedInstance.m_pid = -1;
+	movedInstance.m_parentPid = -1;
+}
+
 
