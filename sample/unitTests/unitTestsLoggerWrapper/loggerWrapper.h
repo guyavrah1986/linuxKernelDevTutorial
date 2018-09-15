@@ -22,6 +22,7 @@ public:
 		google::SetLogDestination(google::GLOG_FATAL, UNIT_TESTS_GLOG_FATAL_LEVEL_PATH);
 		google::InitGoogleLogging(argv0); 
 	}
+
 private:
 	const char* UNIT_TESTS_GLOG_FATAL_LEVEL_PATH = "/tmp/guyProj/unitTests/log";
 };
