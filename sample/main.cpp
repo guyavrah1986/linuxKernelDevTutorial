@@ -6,17 +6,30 @@
 
 using namespace std;
 
-int main(int argc, char** argv)
+Result handleCommandLineArgs(int argc, char** argv)
 {
-	cout << "main - start" << endl;
-	google::InitGoogleLogging(argv[0]);
-
-	LOG(INFO) << "This is an info  message";
 	if (argc != NumOfCommandLineArgs)
 	{
 		cerr << "main - not enough arguments provided, excpecting:" << NumOfCommandLineArgs << endl;
-		return 1;
+		return Result(ErrorCode::ERROR_CODE_INVALID_NUMBER_OF_ARGS);
 	}
+
+	return Result(ErrorCode::ERROR_CODE_SUCCESS);
+}
+
+void setGlog(const char* argv0)
+{
+    google::SetLogDestination(google::GLOG_INFO, GLOG_INFO_LEVEL_LOG_PATH);
+	google::InitGoogleLogging(argv0);
+}
+
+int main(int argc, char** argv)
+{
+	cout << "main - start" << endl;
+	handleCommandLineArgs(argc, argv);
+	setGlog(argv[0]);
+	LOG(INFO) << "This is an info  message";
+
 
 	unique_ptr<int> p;
 	cout << "main - end" << endl;
