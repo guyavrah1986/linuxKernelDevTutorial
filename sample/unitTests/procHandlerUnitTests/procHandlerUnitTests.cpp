@@ -1,7 +1,5 @@
-#include <glog/logging.h>
 #include "gtest/gtest.h"
 
-#include "procHandler.h"
 #include "procHandlerUnitTests.h"
 #include "utils.h"
 
