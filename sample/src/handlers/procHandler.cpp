@@ -4,6 +4,16 @@
 
 using namespace std;
 
+ProcHandler::ProcHandler()
+{
+	LOG(INFO) << "ProcHandler::ProcHandler";
+}
+
+ProcHandler::~ProcHandler()
+{
+	LOG(INFO) << "ProcHandler::~ProcHandler";
+}
+
 Result ProcHandler::addProcessDetaliesToMap(const string& procExeName, ProcessDetailes&& procDetailes)
 {
 	// use operator [] instead of insert() cause if procExeName already exists

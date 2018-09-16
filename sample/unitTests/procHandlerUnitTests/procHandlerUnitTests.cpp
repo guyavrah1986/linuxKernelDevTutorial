@@ -1,5 +1,7 @@
+#include <glog/logging.h>
 #include "gtest/gtest.h"
 
+#include "procHandler.h"
 #include "procHandlerUnitTests.h"
 #include "utils.h"
 
@@ -8,6 +10,15 @@ using namespace std;
 ProcHandlerUnitTests::ProcHandlerUnitTests()
 {
 	cout << "ProcHandlerUnitTests::ProcHandlerUnitTests" << endl;
+	const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(ProcHandlerUnitTests).name());
+	if (setGlog(typeid(ProcHandlerUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
+	{
+		cerr << "ProcHandlerUnitTests::ProcHandlerUnitTests - unable to initialize log" << endl;
+	}
+	else
+	{
+		LOG(INFO) << "ProcHandlerUnitTests::ProcHandlerUnitTests - glog was initialized successfully";
+	}
 }
 
 ProcHandlerUnitTests::~ProcHandlerUnitTests()
@@ -30,33 +41,10 @@ void ProcHandlerUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
-TEST_F(ProcHandlerUnitTests, test1)
+TEST_F(ProcHandlerUnitTests, addNonExistingProcDetailesToMap)
 {
-	cout << "ProcHandlerUnitTests::test1" << endl;
-}
-
-TEST_F(ProcHandlerUnitTests, test2)
-{
-	cout << "ProcHandlerUnitTests::test2" << endl;
-}
-
-// =====================================================================================================================
-// main for this class
-// =====================================================================================================================
-
-
-int main(int argc, char* argv[])
-{
-	const char* UNIT_TESTS_GLOG_PATH = "/tmp/guyProj/unitTests_log";
-	if (setGlog(argv[0], google::GLOG_INFO, UNIT_TESTS_GLOG_PATH).IsSuccess() == false)
-	{
-		cerr << "main - invalid arguments provided" << endl;
-		return 1;
-	}
-
-	LOG(INFO) << "This is a message";
-
-	::testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
+	LOG(INFO) << "ProcHandlerUnitTests::addNonExistingProcDetailesToMap";
+	//ProcessDetailes procDetailes;
+	//Result res = procHandler.addProcessDetaliesToMap("jk",move(procDetailes));
 }
 

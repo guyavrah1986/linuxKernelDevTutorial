@@ -21,7 +21,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # include directories
 # ======================================================================================================================================
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/../src/handlers)
 
 # ======================================================================================================================================
 # group all source files of the executable
@@ -50,7 +50,7 @@ add_executable(procHandlerUnitTestsExe ${PROC_HANDLER_UNIT_TESTS_SRC})
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-target_link_libraries(procHandlerUnitTestsExe gtest utilsLib memoryLeakDetectorLib)
+target_link_libraries(procHandlerUnitTestsExe gtest gtest_main glog memoryLeakDetectorLib handlersLib utilsLib)
 
 
 # ======================================================================================================================================

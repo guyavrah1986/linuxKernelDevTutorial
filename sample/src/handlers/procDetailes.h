@@ -9,7 +9,6 @@ class ProcessDetailes
 
 public:
 	ProcessDetailes();
-	ProcessDetailes(long int pid, long int parentPid = -1);
 	ProcessDetailes(long int pid, long int parentPid);
 	~ProcessDetailes();
 

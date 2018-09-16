@@ -8,12 +8,6 @@ ProcessDetailes::ProcessDetailes()
 
 }
 
-ProcessDetailes::ProcessDetailes(long int pid, long int parentPid = -1)
-	: ProcessDetailes(pid, parentPid)
-{
-
-}
-
 ProcessDetailes::ProcessDetailes(long int pid, long int parentPid)
 	: m_pid(pid)
 	, m_parentPid(parentPid)

@@ -11,10 +11,10 @@ class ProcHandler
 
 public:
 	ProcHandler();
-	virtual ~ProcHandler();
+	~ProcHandler();
 
-private:
 	Result addProcessDetaliesToMap(const std::string& procExeName, ProcessDetailes&& procDetailes);
+private:
 
 private:
 	std::map<std::string, ProcessDetailes> m_processExeNameToProcessDetailesMap;

@@ -3,6 +3,8 @@
 # ======================================================================================================================================
 cmake_minimum_required(VERSION 3.9)
 
+project(internalLibraries)
+
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
 # enable c++11
