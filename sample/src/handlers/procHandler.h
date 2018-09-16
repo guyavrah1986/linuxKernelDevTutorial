@@ -2,7 +2,6 @@
 
 #include <map>
 
-#include "globalInclude.h"
 #include "procDetailes.h"
 
 class ProcHandler
@@ -14,7 +13,6 @@ public:
 	~ProcHandler();
 
 	Result addProcessDetaliesToMap(const std::string& procExeName, ProcessDetailes&& procDetailes);
-private:
 
 private:
 	std::map<std::string, ProcessDetailes> m_processExeNameToProcessDetailesMap;

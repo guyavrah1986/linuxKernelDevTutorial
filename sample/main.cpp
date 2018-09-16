@@ -1,7 +1,10 @@
 #include <iostream>
 #include <memory>
+#include <glog/logging.h>
+
 
 #include "utils.h"
+#include "procHandler.h"
 
 using namespace std;
 
@@ -20,14 +23,6 @@ int main(int argc, char** argv)
 		cerr << "main - invalid arguments provided" << endl;
 		return 1;
 	}
-
-
-	// TODO: sanity (remove later) !!
-	LOG(INFO) << "This is an info  message";
-	unique_ptr<int> p;
-
-
-
 
 	cout << "main - end" << endl;
 	return 0;

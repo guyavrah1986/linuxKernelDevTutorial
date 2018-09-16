@@ -1,5 +1,6 @@
-#include "gtest/gtest.h"
+#include <glog/logging.h>
 
+#include "procHandler.h"
 #include "procHandlerUnitTests.h"
 #include "utils.h"
 
@@ -42,7 +43,7 @@ void ProcHandlerUnitTests::TearDown()
 TEST_F(ProcHandlerUnitTests, addNonExistingProcDetailesToMap)
 {
 	LOG(INFO) << "ProcHandlerUnitTests::addNonExistingProcDetailesToMap";
-	//ProcessDetailes procDetailes;
+	ProcHandler procHandler;
 	//Result res = procHandler.addProcessDetaliesToMap("jk",move(procDetailes));
 }
 

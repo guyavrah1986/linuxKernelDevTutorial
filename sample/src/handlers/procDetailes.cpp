@@ -53,7 +53,7 @@ ProcessDetailes& ProcessDetailes::operator=(ProcessDetailes&& rhs)
 	return *this;
 }
 
-void ProcessDetailes::moveDataMembersValues(const ProcessDetailes& movedInstance)
+void ProcessDetailes::moveDataMembersValues(ProcessDetailes& movedInstance)
 {
 	this->m_pid = movedInstance.m_pid;
 	this->m_parentPid = movedInstance.m_parentPid;

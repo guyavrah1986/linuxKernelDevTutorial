@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/utils)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/utils ${CMAKE_CURRENT_LIST_DIR}/src/handlers)
 
 # ======================================================================================================================================
 # group all source files of the executable
@@ -31,9 +31,6 @@ file(GLOB_RECURSE BCP_MAIN_EXE_SRC "${CMAKE_CURRENT_LIST_DIR}/main.cpp")
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
-
-# common - SHOULD BE BUILT FIRST !!
-#add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/common ${CMAKE_CURRENT_LIST_DIR}/build/common)
 
 # utilities
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils/ ${CMAKE_CURRENT_LIST_DIR}/build/utils)
@@ -55,4 +52,4 @@ add_executable(mainExe ${BCP_MAIN_EXE_SRC})
 # link the main executable with all relevant libraries
 # ======================================================================================================================================
                  
-target_link_libraries(mainExe handlersLib utilsLib glog)
+target_link_libraries(mainExe utilsLib handlersLib glog)

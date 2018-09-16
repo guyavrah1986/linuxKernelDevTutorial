@@ -31,6 +31,9 @@ file(GLOB_RECURSE PROC_HANDLER_UNIT_TESTS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.h") 
 
+file(GLOB_RECURSE PROC_DETAILES_UNIT_TESTS_SRC
+	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.h"
+	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.cpp")
 
 # ======================================================================================================================================
 # Create dependencies libraries
@@ -45,19 +48,24 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LI
 
 add_executable(procHandlerUnitTestsExe ${PROC_HANDLER_UNIT_TESTS_SRC})
 
+add_executable(procDetailesUnitTestsExe ${PROC_DETAILES_UNIT_TESTS_SRC})
 
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
 
-target_link_libraries(procHandlerUnitTestsExe gtest gtest_main glog memoryLeakDetectorLib handlersLib utilsLib)
+target_link_libraries(procHandlerUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
+target_link_libraries(procDetailesUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
 # ======================================================================================================================================
 # GTest realted settings for the unit test exe
 # ======================================================================================================================================
 
 add_test(procHandlerUnitTestsExe procHandlerUnitTestsExe)
+
+add_test(procDetailesUnitTestsExe procDetailesUnitTestsExe)
+
 
 
 

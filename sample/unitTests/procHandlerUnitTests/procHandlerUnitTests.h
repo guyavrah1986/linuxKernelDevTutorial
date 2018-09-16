@@ -10,8 +10,5 @@ protected:
 	virtual ~ProcHandlerUnitTests();
 	virtual void SetUp();
 	virtual void TearDown();
-
-private:
-
 };
 

@@ -21,7 +21,7 @@ public:
 	ProcessDetailes& operator=(ProcessDetailes&& rhs);
 
 private:
-	void moveDataMembersValues(const ProcessDetailes& movedInstance);
+	void moveDataMembersValues(ProcessDetailes& movedInstance);
 
 private:
 	long int m_pid;
