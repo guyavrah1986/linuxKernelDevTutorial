@@ -46,5 +46,6 @@ TEST_F(ProcHandlerUnitTests, addNonExistingProcDetailesToMap)
 	LOG(INFO) << "ProcHandlerUnitTests::addNonExistingProcDetailesToMap";
 	ProcHandler procHandler;
 	Result res = procHandler.addProcessDetaliesToMap("jk",move(ProcessDetailes()));
+	EXPECT_EQ(res.IsSuccess(), true);
 }
 
