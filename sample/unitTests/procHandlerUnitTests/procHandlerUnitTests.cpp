@@ -1,6 +1,7 @@
 #include <glog/logging.h>
 
 #include "procHandler.h"
+#include "procDetailes.h"
 #include "procHandlerUnitTests.h"
 #include "utils.h"
 
@@ -44,6 +45,6 @@ TEST_F(ProcHandlerUnitTests, addNonExistingProcDetailesToMap)
 {
 	LOG(INFO) << "ProcHandlerUnitTests::addNonExistingProcDetailesToMap";
 	ProcHandler procHandler;
-	//Result res = procHandler.addProcessDetaliesToMap("jk",move(procDetailes));
+	Result res = procHandler.addProcessDetaliesToMap("jk",move(ProcessDetailes()));
 }
 
