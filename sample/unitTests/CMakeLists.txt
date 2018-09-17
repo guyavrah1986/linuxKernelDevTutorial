@@ -21,19 +21,28 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # include directories
 # ======================================================================================================================================
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir ${CMAKE_CURRENT_LIST_DIR}/../src/handlers)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir 
+		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers
+		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers)
 
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
-# 
+
+# ProcHnadler unit tests sources 
 file(GLOB_RECURSE PROC_HANDLER_UNIT_TESTS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.cpp"
     "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.h") 
 
+# ProcDetaile unit tests sources 
 file(GLOB_RECURSE PROC_DETAILES_UNIT_TESTS_SRC
 	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.h"
 	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.cpp")
+
+# ThreadWrapper unit tests sources 
+file(GLOB_RECURSE THREAD_WRAPPER_UNIT_TESTS_SRC
+	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.h"
+	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.cpp")
 
 # ======================================================================================================================================
 # Create dependencies libraries
@@ -50,6 +59,8 @@ add_executable(procHandlerUnitTestsExe ${PROC_HANDLER_UNIT_TESTS_SRC})
 
 add_executable(procDetailesUnitTestsExe ${PROC_DETAILES_UNIT_TESTS_SRC})
 
+add_executable(threadWrapperUnitTestsExe ${THREAD_WRAPPER_UNIT_TESTS_SRC})
+
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
@@ -58,6 +69,8 @@ target_link_libraries(procHandlerUnitTestsExe gtest gtest_main handlersLib utils
 
 target_link_libraries(procDetailesUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
+target_link_libraries(threadWrapperUnitTestsExe gtest gtest_main utilsLib)
+
 # ======================================================================================================================================
 # GTest realted settings for the unit test exe
 # ======================================================================================================================================
@@ -65,6 +78,8 @@ target_link_libraries(procDetailesUnitTestsExe gtest gtest_main handlersLib util
 add_test(procHandlerUnitTestsExe procHandlerUnitTestsExe)
 
 add_test(procDetailesUnitTestsExe procDetailesUnitTestsExe)
+
+add_test(threadWrapperUnitTestsExe threadWrapperUnitTestsExe)
 
 
 
