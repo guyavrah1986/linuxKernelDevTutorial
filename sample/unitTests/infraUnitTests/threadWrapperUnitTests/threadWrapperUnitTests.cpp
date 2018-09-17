@@ -1,8 +1,8 @@
 #include <glog/logging.h>
+#include <thread>
 
 #include "threadWrapperUnitTests.h"
 #include "utils.h"
-
 
 using namespace std;
 
@@ -43,7 +43,5 @@ void ThreadWrapperUnitTests::TearDown()
 TEST_F(ThreadWrapperUnitTests, test1)
 {
 	LOG(INFO) << "ThreadWrapperUnitTests::test1";
-	//ProcessDetailes procDestailes;
-	//Result res = procHandler.addProcessDetaliesToMap("jk",move(procDetailes));
 }
 
