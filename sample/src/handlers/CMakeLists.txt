@@ -14,7 +14,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+
+# in order to be able to unit-test the provate function of the classes
 
 # ======================================================================================================================================
 # group all source files of the executable
@@ -36,4 +38,4 @@ add_library(handlersLib SHARED ${HANDLERS_SRC})
 # ======================================================================================================================================
 # link the library with all other relevant libraries
 # ======================================================================================================================================
-target_link_libraries(handlersLib glog)
+target_link_libraries(handlersLib glog gtest)
