@@ -23,6 +23,8 @@ It secondary purpose is to practice CI/CD capabilties via Jenkins and imply some
 10. main.cpp: The main function of the project.
 
 # Resources:
-1. C++11 Multithreading tutorial: https://thispointer.com/c-11-multithreading-part-1-three-different-ways-to-create-threads/
+1. C++11 Multithreading
+	- Nice short tutorial: https://thispointer.com/c-11-multithreading-part-1-three-different-ways-to-create-threads/
+	- Common mistakes short article: http://www.acodersjourney.com/2017/08/top-20-cplusplus-multithreading-mistakes/
 
 
