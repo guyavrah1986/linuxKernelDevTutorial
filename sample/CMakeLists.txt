@@ -24,7 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir
 		    ${CMAKE_CURRENT_LIST_DIR}/utils
 		    ${CMAKE_CURRENT_LIST_DIR}/src/handlers
-		    ${CMAKE_CURRENT_LIST_DIR}/infra)
+		    ${CMAKE_CURRENT_LIST_DIR}/infra
+		    ${CMAKE_CURRENT_LIST_DIR}/infra/stdThreadRaiiWrapper)
 
 # ======================================================================================================================================
 # group all source files of the executable

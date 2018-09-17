@@ -29,7 +29,7 @@ file(GLOB_RECURSE INFRA_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
 # ======================================================================================================================================
 
 # std thread RAII wrapper library (class)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/stdThreadRaiiWrapper/ ${CMAKE_CURRENT_LIST_DIR}/build/infra/stdThreadRaiiWrapper)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/stdThreadRaiiWrapper/ ${CMAKE_CURRENT_LIST_DIR}/../../build/infra/stdThreadRaiiWrapper)
 
 # ======================================================================================================================================
 # create the library 

@@ -2,13 +2,19 @@
 #include <memory>
 #include <glog/logging.h>
 
-
 #include "utils.h"
 #include "procHandler.h"
 #include "handlersDispatcher.h"
-
+#include "stdThreadRaiiWrapper.h"
 
 using namespace std;
+
+// TODO: remove when done !!!
+void sanityFunc()
+{
+	StdThreadRaiiWrapper th1;
+}
+// TODO: remove when done !!!
 
 int main(int argc, char** argv)
 {
