@@ -1,5 +1,4 @@
 #include <glog/logging.h>
-#include <thread>
 
 #include "threadWrapperUnitTests.h"
 #include "utils.h"
