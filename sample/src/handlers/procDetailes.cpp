@@ -53,6 +53,16 @@ ProcessDetailes& ProcessDetailes::operator=(ProcessDetailes&& rhs)
 	return *this;
 }
 
+long int ProcessDetailes::GetPid() const
+{
+	return this->m_pid;
+}
+
+long int ProcessDetailes::GetParentPid() const
+{
+	return this->m_parentPid;
+}
+
 void ProcessDetailes::moveDataMembersValues(ProcessDetailes& movedInstance)
 {
 	this->m_pid = movedInstance.m_pid;

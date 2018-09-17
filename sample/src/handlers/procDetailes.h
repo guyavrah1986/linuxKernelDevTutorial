@@ -20,10 +20,13 @@ public:
 	ProcessDetailes(ProcessDetailes&& other);
 	ProcessDetailes& operator=(ProcessDetailes&& rhs);
 
+	// getters & setters
+	long int GetPid() const;
+	long int GetParentPid() const;
+
 private:
 	void moveDataMembersValues(ProcessDetailes& movedInstance);
 
-private:
 	long int m_pid;
 	long int m_parentPid;
 };
