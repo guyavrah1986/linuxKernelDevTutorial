@@ -21,3 +21,8 @@ It secondary purpose is to practice CI/CD capabilties via Jenkins and imply some
 8. CMakeLists.txt: The main CMake file of the entire project. This is the first file that is proccessed by the cmake utility.
 9. genericBuildProjectScript.sh: The script used to build the project. Its first argument is the location of the first CMakeLists.txt file to process.
 10. main.cpp: The main function of the project.
+
+# Resources:
+1. C++11 Multithreading tutorial: https://thispointer.com/c-11-multithreading-part-1-three-different-ways-to-create-threads/
+
+
