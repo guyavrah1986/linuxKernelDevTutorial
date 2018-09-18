@@ -6,18 +6,26 @@
 #include "utils.h"
 
 using namespace std;
+size_t numOfInitForGlog = 0;
 
 ProcHandlerUnitTests::ProcHandlerUnitTests()
 {
 	cout << "ProcHandlerUnitTests::ProcHandlerUnitTests" << endl;
-	const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(ProcHandlerUnitTests).name());
-	if (setGlog(typeid(ProcHandlerUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
+	if (0 == numOfInitForGlog)
 	{
-		cerr << "ProcHandlerUnitTests::ProcHandlerUnitTests - unable to initialize log" << endl;
+		const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(ProcHandlerUnitTests).name());
+		if (setGlog(typeid(ProcHandlerUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
+		{
+			cerr << "ProcHandlerUnitTests::ProcHandlerUnitTests - unable to initialize log" << endl;
+		}
+		else
+		{
+			LOG(INFO) << "ProcHandlerUnitTests::ProcHandlerUnitTests - glog was initialized successfully";
+		}
 	}
 	else
 	{
-		LOG(INFO) << "ProcHandlerUnitTests::ProcHandlerUnitTests - glog was initialized successfully";
+		LOG(INFO) << "ProcHandlerUnitTests::ProcHandlerUnitTests - glog is already initialized successfully";
 	}
 }
 

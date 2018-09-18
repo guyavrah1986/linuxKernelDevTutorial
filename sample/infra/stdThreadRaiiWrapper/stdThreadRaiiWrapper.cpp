@@ -8,12 +8,12 @@ StdThreadRaiiWrapper::StdThreadRaiiWrapper(thread&& t, RAIIAction a)
 	: m_thread(move(t))
 	, m_actionUponDestruction(a)
 {
-	LOG(INFO) << "StdThreadRaiiWrapper::StdThreadRaiiWrapper - thread ID is" << t.get_id();
+	LOG(INFO) << "StdThreadRaiiWrapper::StdThreadRaiiWrapper - thread ID is:" << m_thread.get_id();
 }
 
 StdThreadRaiiWrapper::~StdThreadRaiiWrapper()
 {
-	LOG(INFO) << "StdThreadRaiiWrapper::~StdThreadRaiiWrapper";
+	LOG(INFO) << "StdThreadRaiiWrapper::~StdThreadRaiiWrapper - thread ID is:" << m_thread.get_id();
 	if (m_thread.joinable())
 	{
 		(m_thread.*m_actionUponDestruction)();
