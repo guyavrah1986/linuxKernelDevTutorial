@@ -69,7 +69,7 @@ target_link_libraries(procHandlerUnitTestsExe gtest gtest_main handlersLib utils
 
 target_link_libraries(procDetailesUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
-target_link_libraries(threadWrapperUnitTestsExe gtest gtest_main utilsLib)
+target_link_libraries(threadWrapperUnitTestsExe gtest gtest_main stdThreadRaiiWrapperLib utilsLib)
 
 # ======================================================================================================================================
 # GTest realted settings for the unit test exe

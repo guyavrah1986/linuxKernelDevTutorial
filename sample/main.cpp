@@ -10,12 +10,27 @@
 using namespace std;
 
 // TODO: remove when done !!!
+
+#include <thread>
 void sanityFunc()
 {
-	StdThreadRaiiWrapper th1;
+	cout << "sanityFunc - with thread ID:" << this_thread::get_id() << endl;
+}
+
+int main(int argc, char** argv)
+{
+	cout << "main - start" << endl;
+	thread th1();
+
+	cout << "main - end" << endl;
 }
 // TODO: remove when done !!!
 
+
+
+
+
+/*
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
@@ -35,3 +50,4 @@ int main(int argc, char** argv)
 	cout << "main - end" << endl;
 	return 0;
 }
+*/

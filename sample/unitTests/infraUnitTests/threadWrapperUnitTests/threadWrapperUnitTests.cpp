@@ -1,9 +1,12 @@
 #include <glog/logging.h>
 
+#include "stdThreadRaiiWrapper.h"
 #include "threadWrapperUnitTests.h"
 #include "utils.h"
 
 using namespace std;
+
+bool isCalled = false;
 
 ThreadWrapperUnitTests::ThreadWrapperUnitTests()
 {
@@ -39,8 +42,21 @@ void ThreadWrapperUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
-TEST_F(ThreadWrapperUnitTests, test1)
+void func1()
 {
-	LOG(INFO) << "ThreadWrapperUnitTests::test1";
+	isCalled = true;
+}
+
+TEST_F(ThreadWrapperUnitTests, verifyJoin)
+{
+	isCalled = false;
+	LOG(INFO) << "ThreadWrapperUnitTests::verifyJoin";
+
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyJoin - entering dummy scope, creating StdThreadRaiiWrapper";
+		StdThreadRaiiWrapper joinedThread(thread(func1), &thread::join);
+	}
+
+	EXPECT_EQ(isCalled, true);
 }
 
