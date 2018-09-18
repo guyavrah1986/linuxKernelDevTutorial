@@ -36,4 +36,7 @@ add_library(stdThreadRaiiWrapperLib SHARED ${STD_THREAD_RAII_WRAPPER_SRC})
 # ======================================================================================================================================
 # link the library with all other relevant libraries
 # ======================================================================================================================================
-target_link_libraries(stdThreadRaiiWrapperLib)
+if(UNIX AND NOT APPLE)
+    target_link_libraries(stdThreadRaiiWrapperLib pthread)
+endif()
+
