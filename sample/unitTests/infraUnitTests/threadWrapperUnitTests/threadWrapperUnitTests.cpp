@@ -93,7 +93,7 @@ TEST_F(ThreadWrapperUnitTests, verifyDetach)
 void workerThread()
 {
 	LOG(INFO) << "ThreadWrapperUnitTests::workerThread";
-	size_t numOfSecToWorkUntillExceptionIsThrown = 3;
+	size_t numOfSecToWorkUntillExceptionIsThrown = 2;
 	size_t numSecPassed = 0;
 	isCalled = true;
 
@@ -111,25 +111,50 @@ void workerThread()
 	LOG(INFO) << "ThreadWrapperUnitTests::workerThread - end";
 }
 
-TEST_F(ThreadWrapperUnitTests, verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully)
+TEST_F(ThreadWrapperUnitTests, verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion)
 {
-	LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - start";
+	LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - start";
 	isCalled = false;
 	isThrown = false;
 
 	try
 	{
-		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - entering dummy scope, creating StdThreadRaiiWrapper";
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - entering dummy scope, creating StdThreadRaiiWrapper";
 		StdThreadRaiiWrapper joinedThread(thread(workerThread), &thread::join);
 		throw runtime_error("main thread threw exception");
-		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - this line should not be reached";
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - this line should not be reached";
 	}
 	catch (const exception& e)
 	{
-		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - caught std::exception, e.what:" << e.what();
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - caught std::exception, e.what:" << e.what();
 	}
 
 	EXPECT_EQ(isCalled, true);
-	LOG(INFO) << "verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - end";
+	LOG(INFO) << "verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully::verifyThatJoindThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - end";
+}
+
+TEST_F(ThreadWrapperUnitTests, verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion)
+{
+	LOG(INFO) << "ThreadWrapperUnitTests::verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - start";
+	isCalled = false;
+	isThrown = false;
+
+	try
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - entering dummy scope, creating StdThreadRaiiWrapper";
+		StdThreadRaiiWrapper joinedThread(thread(workerThread), &thread::detach);
+		throw runtime_error("main thread threw exception");
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - this line should not be reached";
+	}
+	catch (const exception& e)
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - caught std::exception, e.what:" << e.what();
+	}
+
+	// because the worker thread is detached, we MUST wait for it to modify the global variable
+	// isCalled before we check it, so wait for a while before you do that
+	this_thread::sleep_for((chrono::seconds(3)));
+	EXPECT_EQ(isCalled, true);
+	LOG(INFO) << "verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully::verifyThatDetachedThreadTerminateGracefullyWhenMainThreadThrowsExcpetion - end";
 }
 
