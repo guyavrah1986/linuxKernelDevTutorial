@@ -1,5 +1,6 @@
 #include <glog/logging.h>
 #include <chrono>
+#include <exception>
 
 #include "stdThreadRaiiWrapper.h"
 #include "threadWrapperUnitTests.h"
@@ -8,6 +9,8 @@
 using namespace std;
 
 bool isCalled = false;
+bool isThrown = false;
+
 size_t numOfInitForGlog = 0;
 
 ThreadWrapperUnitTests::ThreadWrapperUnitTests()
@@ -85,5 +88,48 @@ TEST_F(ThreadWrapperUnitTests, verifyDetach)
 
 	EXPECT_EQ(isCalled, true);
 	LOG(INFO) << "ThreadWrapperUnitTests::verifyDetach - end";
+}
+
+void workerThread()
+{
+	LOG(INFO) << "ThreadWrapperUnitTests::workerThread";
+	size_t numOfSecToWorkUntillExceptionIsThrown = 3;
+	size_t numSecPassed = 0;
+	isCalled = true;
+
+	while (true)
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::workerThread - in iteration number:" << ++numSecPassed;
+		this_thread::sleep_for((chrono::seconds(1)));
+		if (numSecPassed == numOfSecToWorkUntillExceptionIsThrown)
+		{
+			return;
+		}
+	}
+
+	// should never reach here
+	LOG(INFO) << "ThreadWrapperUnitTests::workerThread - end";
+}
+
+TEST_F(ThreadWrapperUnitTests, verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully)
+{
+	LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - start";
+	isCalled = false;
+	isThrown = false;
+
+	try
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - entering dummy scope, creating StdThreadRaiiWrapper";
+		StdThreadRaiiWrapper joinedThread(thread(workerThread), &thread::join);
+		throw runtime_error("main thread threw exception");
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - this line should not be reached";
+	}
+	catch (const exception& e)
+	{
+		LOG(INFO) << "ThreadWrapperUnitTests::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - caught std::exception, e.what:" << e.what();
+	}
+
+	EXPECT_EQ(isCalled, true);
+	LOG(INFO) << "verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully::verifyThatJoindThreadThatThrowsExcpetionTerminateGracefully - end";
 }
 
