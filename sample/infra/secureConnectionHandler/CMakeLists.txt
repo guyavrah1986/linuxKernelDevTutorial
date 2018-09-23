@@ -3,7 +3,7 @@
 # ======================================================================================================================================
 cmake_minimum_required(VERSION 3.9)
 
-project(infra)
+project(secureConnectionHandler)
 
 message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within folder:${CMAKE_CURRENT_LIST_DIR}")
 
@@ -11,36 +11,35 @@ message(STATUS "processing CMakeLists of project:${CMAKE_PROJECT_NAME} within fo
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# needed for OpenSSL
+find_package(OpenSSL REQUIRED)
+
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir)
-
-# in order to be able to unit-test the provate function of the classes
+# include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir)
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 # ======================================================================================================================================
 # group all source files of the executable
 # ======================================================================================================================================
-file(GLOB_RECURSE INFRA_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
-			    "${CMAKE_CURRENT_LIST_DIR}/*.h")
+file(GLOB_RECURSE SECURE_CONNECTION_HANDLER_SRC "${CMAKE_CURRENT_LIST_DIR}/*.cpp"
+			    		        "${CMAKE_CURRENT_LIST_DIR}/*.h")
 
 # ======================================================================================================================================
 # add relevant sub directories -- invoke their CMakeLists.txt files
 # ======================================================================================================================================
 
-# std thread RAII wrapper library (class)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/stdThreadRaiiWrapper/ ${CMAKE_CURRENT_LIST_DIR}/../../build/infra/stdThreadRaiiWrapper)
-
-# secure connection library (class)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/secureConnectionHandler/ ${CMAKE_CURRENT_LIST_DIR}/../../build/infra/secureConnectionHandler)
 
 # ======================================================================================================================================
 # create the library 
 # ======================================================================================================================================
-add_library(infraLib SHARED ${INFRA_SRC})
+add_library(secureConnectionHandlerLib SHARED ${SECURE_CONNECTION_HANDLER_SRC})
 
    
 # ======================================================================================================================================
 # link the library with all other relevant libraries
 # ======================================================================================================================================
-target_link_libraries(infraLib stdThreadRaiiWrapperLib secureConnectionHandlerLib glog)
+target_link_libraries(secureConnectionHandlerLib ${OPENSSL_LIBRARIES})
+
+
