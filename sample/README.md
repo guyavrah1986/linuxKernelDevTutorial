@@ -22,6 +22,10 @@ It secondary purpose is to practice CI/CD capabilties via Jenkins and imply some
 9. genericBuildProjectScript.sh: The script used to build the project. Its first argument is the location of the first CMakeLists.txt file to process.
 10. main.cpp: The main function of the project.
 
+# Main technologies used:
+1. C++11 multi-threading: std::thread, std::mutex, etc...
+2. OpenSSL.
+
 # Resources:
 1. C++11 Multithreading
 	- Nice short tutorial: https://thispointer.com/c-11-multithreading-part-1-three-different-ways-to-create-threads/
