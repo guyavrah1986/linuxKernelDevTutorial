@@ -32,5 +32,6 @@ It secondary purpose is to practice CI/CD capabilties via Jenkins and imply some
 	- Common mistakes short article: http://www.acodersjourney.com/2017/08/top-20-cplusplus-multithreading-mistakes/
 2. OpenSSL: 
 	- https://www.ibm.com/developerworks/library/l-openssl/
+	- http://h41379.www4.hpe.com/doc/83final/ba554_90007/ch04s03.html
 
 
