@@ -1,7 +1,6 @@
 #include <glog/logging.h>
 
 #include "../mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
-
 #include "procHandler.h"
 #include "procDetailes.h"
 #include "procHandlerUnitTests.h"
