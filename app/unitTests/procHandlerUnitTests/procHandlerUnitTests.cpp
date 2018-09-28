@@ -1,5 +1,7 @@
 #include <glog/logging.h>
 
+#include "../mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
+
 #include "procHandler.h"
 #include "procDetailes.h"
 #include "procHandlerUnitTests.h"
@@ -8,11 +10,15 @@
 using namespace std;
 size_t numOfInitForGlog = 0;
 
+using namespace std;
+
 ProcHandlerUnitTests::ProcHandlerUnitTests()
 {
 	cout << "ProcHandlerUnitTests::ProcHandlerUnitTests" << endl;
 	if (0 == numOfInitForGlog)
 	{
+		my_init_hook();
+		// initialize the malloc and free hooks
 		const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(ProcHandlerUnitTests).name());
 		if (setGlog(typeid(ProcHandlerUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
 		{
@@ -21,6 +27,7 @@ ProcHandlerUnitTests::ProcHandlerUnitTests()
 		else
 		{
 			LOG(INFO) << "ProcHandlerUnitTests::ProcHandlerUnitTests - glog was initialized successfully";
+			++numOfInitForGlog;
 		}
 	}
 	else
@@ -49,6 +56,20 @@ void ProcHandlerUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
+void actualFunc()
+{
+	char* p = new char[89];
+	// do not delete it !!
+}
+
+TEST_F(ProcHandlerUnitTests, testMemCheck)
+{
+
+	cout << "ProcHandlerUnitTests::testMemCheck" << endl;
+	actualFunc();
+}
+
+/*
 TEST_F(ProcHandlerUnitTests, addProcDetailesToMap)
 {
 	LOG(INFO) << "ProcHandlerUnitTests::addProcDetailesToMap";
@@ -80,3 +101,4 @@ TEST_F(ProcHandlerUnitTests, addProcDetailesToMap)
 	EXPECT_EQ(it->second.GetParentPid(), newExe1ParentPid);
 }
 
+*/

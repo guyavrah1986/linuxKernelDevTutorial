@@ -23,7 +23,9 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir 
 		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers
-		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers)
+		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers
+		    ${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests
+	            ${CMAKE_CURRENT_LIST_DIR})
 
 # ======================================================================================================================================
 # group all source files of the executable
@@ -32,24 +34,29 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir
 # ProcHnadler unit tests sources 
 file(GLOB_RECURSE PROC_HANDLER_UNIT_TESTS_SRC
     "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.h") 
+    "${CMAKE_CURRENT_LIST_DIR}/procHandlerUnitTests/*.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+    "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
 
 # ProcDetaile unit tests sources 
 file(GLOB_RECURSE PROC_DETAILES_UNIT_TESTS_SRC
 	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.h"
-	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.cpp")
+	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
+)
 
 # ThreadWrapper unit tests sources 
 file(GLOB_RECURSE THREAD_WRAPPER_UNIT_TESTS_SRC
 	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.h"
-	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.cpp")
+	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
 
 # ======================================================================================================================================
 # Create dependencies libraries
 # ======================================================================================================================================
 
-# Create the memory leak detector library
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/memoryLeakDetector ${CMAKE_CURRENT_LIST_DIR}/../../build/unitTests/memoryLeakDetector)
 
 # ======================================================================================================================================
 # create the unit tests executables
