@@ -65,7 +65,6 @@ void actualFunc()
 
 TEST_F(ProcHandlerUnitTests, testMemCheck)
 {
-
 	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
 	actualFunc();
 	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
@@ -74,31 +73,36 @@ TEST_F(ProcHandlerUnitTests, testMemCheck)
 
 TEST_F(ProcHandlerUnitTests, addProcDetailesToMap)
 {
-	LOG(INFO) << "ProcHandlerUnitTests::addProcDetailesToMap";
-	ProcHandler procHandler;
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
+	{
+		LOG(INFO) << "ProcHandlerUnitTests::addProcDetailesToMap";
+		ProcHandler procHandler;
 
-	// first, add a new ProcessDetailes to an empty map
-	const string exe1Name = "ExeName1";
-	Result res = procHandler.addProcessDetaliesToMap(exe1Name, move(ProcessDetailes()));
-	EXPECT_EQ(res.IsSuccess(), true);
-	EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().count(exe1Name), 1);
+		// first, add a new ProcessDetailes to an empty map
+		const string exe1Name = "ExeName1";
+		Result res = procHandler.addProcessDetaliesToMap(exe1Name, move(ProcessDetailes()));
+		EXPECT_EQ(res.IsSuccess(), true);
+		EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().count(exe1Name), 1);
 
-	// now insert second ProcessDetailes
-	const string exe2Name = "ExeName2";
-	res = procHandler.addProcessDetaliesToMap(exe2Name, move(ProcessDetailes()));
-	EXPECT_EQ(res.IsSuccess(), true);
-	EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().count(exe2Name), 1);
-	EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().size(), 2);
+		// now insert second ProcessDetailes
+		const string exe2Name = "ExeName2";
+		res = procHandler.addProcessDetaliesToMap(exe2Name, move(ProcessDetailes()));
+		EXPECT_EQ(res.IsSuccess(), true);
+		EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().count(exe2Name), 1);
+		EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().size(), 2);
 
-	// now overwrite the previous exe1Name ProcessDetailes with new detailes
-	const long int newExe1Pid = 12;
-	const long int newExe1ParentPid = 15;
+		// now overwrite the previous exe1Name ProcessDetailes with new detailes
+		const long int newExe1Pid = 12;
+		const long int newExe1ParentPid = 15;
 
-	res = procHandler.addProcessDetaliesToMap(exe1Name, move(ProcessDetailes(newExe1Pid, newExe1ParentPid)));
-	EXPECT_EQ(res.IsSuccess(), true);
-	EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().size(), 2);
-	auto it = procHandler.GetProcessExeNameToProcessDetailesMap().find(exe1Name);
-	EXPECT_EQ((it->first) == exe1Name, true);
-	EXPECT_EQ(it->second.GetPid(), newExe1Pid);
-	EXPECT_EQ(it->second.GetParentPid(), newExe1ParentPid);
+		res = procHandler.addProcessDetaliesToMap(exe1Name, move(ProcessDetailes(newExe1Pid, newExe1ParentPid)));
+		EXPECT_EQ(res.IsSuccess(), true);
+		EXPECT_EQ(procHandler.GetProcessExeNameToProcessDetailesMap().size(), 2);
+		auto it = procHandler.GetProcessExeNameToProcessDetailesMap().find(exe1Name);
+		EXPECT_EQ((it->first) == exe1Name, true);
+		EXPECT_EQ(it->second.GetPid(), newExe1Pid);
+		EXPECT_EQ(it->second.GetParentPid(), newExe1ParentPid);
+	}
+
+	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }

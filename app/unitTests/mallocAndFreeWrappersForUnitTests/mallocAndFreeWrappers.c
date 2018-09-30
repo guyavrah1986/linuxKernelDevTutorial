@@ -3,13 +3,15 @@
 static size_t g_numBytesAllocated = 0;
 
 static size_t g_numBytesAllocatedBeforeTest = 0;
+static size_t g_numBytesAllocatedAfterTest = 0;
+
 #define MEM_CHECK_BEFORE_TEST(num) g_numBytesAllocatedBeforeTest = num;
-#define MEM_CHECK_AFTER_TEST(num) EXPECT_EQ(num,g_numBytesAllocatedBeforeTest);
+#define MEM_CHECK_AFTER_TEST(num) g_numBytesAllocatedAfterTest = num; EXPECT_EQ(g_numBytesAllocatedAfterTest,g_numBytesAllocatedBeforeTest);
 
 // Prototypes for our hooks
-void my_init_hook (void);
-static void* my_malloc_hook(size_t, const void*);
-static void my_free_hook(void*, const void*);
+void my_init_hook(void);
+static void* my_malloc_hook(size_t size, const void* caller);
+static void my_free_hook(void* ptr, const void* caller);
 
 // Variables to save original hooks
 static void *(*old_malloc_hook)(size_t, const void*);

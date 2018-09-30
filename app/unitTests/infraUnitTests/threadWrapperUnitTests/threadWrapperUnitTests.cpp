@@ -2,6 +2,7 @@
 #include <chrono>
 #include <exception>
 
+#include "../mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
 #include "stdThreadRaiiWrapper.h"
 #include "threadWrapperUnitTests.h"
 #include "utils.h"
@@ -18,6 +19,7 @@ ThreadWrapperUnitTests::ThreadWrapperUnitTests()
 	cout << "ThreadWrapperUnitTests::ThreadWrapperUnitTests" << endl;
 	if (0 == numOfInitForGlog)
 	{
+		my_init_hook();
 		const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(ThreadWrapperUnitTests).name());
 		if (setGlog(typeid(ThreadWrapperUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
 		{
@@ -63,6 +65,7 @@ void func1()
 
 TEST_F(ThreadWrapperUnitTests, verifyJoin)
 {
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
 	isCalled = false;
 	LOG(INFO) << "ThreadWrapperUnitTests::verifyJoin - start";
 
@@ -73,6 +76,7 @@ TEST_F(ThreadWrapperUnitTests, verifyJoin)
 
 	EXPECT_EQ(isCalled, true);
 	LOG(INFO) << "ThreadWrapperUnitTests::verifyJoin - end";
+	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }
 
 TEST_F(ThreadWrapperUnitTests, verifyDetach)
