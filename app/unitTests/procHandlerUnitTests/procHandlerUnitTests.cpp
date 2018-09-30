@@ -7,6 +7,7 @@
 #include "utils.h"
 
 using namespace std;
+
 size_t numOfInitForGlog = 0;
 
 using namespace std;
@@ -58,17 +59,19 @@ void ProcHandlerUnitTests::TearDown()
 void actualFunc()
 {
 	char* p = new char[89];
-	// do not delete it !!
+	cout << "actualFunc - now going to delete memory allocated" << endl;
+	delete p;
 }
 
 TEST_F(ProcHandlerUnitTests, testMemCheck)
 {
 
-	cout << "ProcHandlerUnitTests::testMemCheck" << endl;
+	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
 	actualFunc();
+	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }
 
-/*
+
 TEST_F(ProcHandlerUnitTests, addProcDetailesToMap)
 {
 	LOG(INFO) << "ProcHandlerUnitTests::addProcDetailesToMap";
@@ -99,5 +102,3 @@ TEST_F(ProcHandlerUnitTests, addProcDetailesToMap)
 	EXPECT_EQ(it->second.GetPid(), newExe1Pid);
 	EXPECT_EQ(it->second.GetParentPid(), newExe1ParentPid);
 }
-
-*/
