@@ -1,12 +1,14 @@
 #pragma once
 
+#include <openssl/bio.h>
+
 #include "globalInclude.h"
 
 enum BioConnectionType
 {
-	SECURE_CONNECTION_BIO_CONNECTION_BLOCKING = 0,
-	SECURE_CONNECTION_BIO_CONNECTION_NON_BLOCKING,
-	SECURE_CONNECTION_BIO_CONNECTION_UNKNOWN
+	SECURE_CONNECTION_BIO_CONNECTION_TYPE_BLOCKING = 0,
+	SECURE_CONNECTION_BIO_CONNECTION_TYPE_NON_BLOCKING,
+	SECURE_CONNECTION_BIO_CONNECTION_TYPE_UNKNOWN
 };
 
 enum BioOperationResultType
@@ -15,6 +17,7 @@ enum BioOperationResultType
 	SECURE_CONNECTION_BIO_OPERATION_RESULT_NO_DATA_AVAILBLE,
 	SECURE_CONNECTION_BIO_OPERATION_RESULT_CONNECTION_WAS_CLOSED,
 	SECURE_CONNECTION_BIO_OPERATION_RESULT_SUCCESS,
+	SECURE_CONNECTION_BIO_OPERATION_RESULT_FAILED,
 	SECURE_CONNECTION_BIO_OPERATION_RESULT_UNKNOWN
 };
 
@@ -24,7 +27,7 @@ class BioOperation
 	NO_COPY(BioOperation);
 
 public:
-	BioOperation(void* opBuff, int opLen);
+	BioOperation(BIO* bio, void* opBuff, int opLen);
 	virtual ~BioOperation();
 
 	virtual BioOperationResultType HandleOperation() = 0;
@@ -34,9 +37,11 @@ protected:
 
 // members
 protected:
+	BIO* m_bio;
 	void* m_operationBuff;
 	int m_operationLen;
 	int m_operationRes;
+	BioConnectionType m_connectionType;
 };
 
 /*
