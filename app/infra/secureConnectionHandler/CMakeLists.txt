@@ -17,8 +17,9 @@ find_package(OpenSSL REQUIRED)
 # ======================================================================================================================================
 # include directories
 # ======================================================================================================================================
-# include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir)
-include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../../globalIncludeDir
+		    ${OPENSSL_INCLUDE_DIR})
+
 
 # ======================================================================================================================================
 # group all source files of the executable
