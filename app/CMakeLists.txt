@@ -25,7 +25,8 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/globalIncludeDir
 		    ${CMAKE_CURRENT_LIST_DIR}/utils
 		    ${CMAKE_CURRENT_LIST_DIR}/src/handlers
 		    ${CMAKE_CURRENT_LIST_DIR}/infra
-		    ${CMAKE_CURRENT_LIST_DIR}/infra/stdThreadRaiiWrapper)
+		    ${CMAKE_CURRENT_LIST_DIR}/infra/stdThreadRaiiWrapper
+		    ${CMAKE_CURRENT_LIST_DIR}/infra/secureConnectionHandler)
 
 # ======================================================================================================================================
 # group all source files of the executable

@@ -6,31 +6,19 @@
 #include "procHandler.h"
 #include "handlersDispatcher.h"
 #include "stdThreadRaiiWrapper.h"
+#include "secureConnectionHandler.h"
 
 using namespace std;
-
-// TODO: remove when done !!!
-
-#include <thread>
-void sanityFunc()
-{
-	cout << "sanityFunc - with thread ID:" << this_thread::get_id() << endl;
-}
 
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-	thread th1();
 
 	cout << "main - end" << endl;
 }
-// TODO: remove when done !!!
 
 
-
-
-
-/*
+/* ORIGINAL MAIN
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
