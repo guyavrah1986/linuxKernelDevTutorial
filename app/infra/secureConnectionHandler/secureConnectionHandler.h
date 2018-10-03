@@ -10,6 +10,8 @@
  * It's main tasks are:
  * 1) Initialize the usage in the OpenSSL libray.
  * 2) Hold all the SslConnections of the application.
+ *
+ * NOTE: It does not responsbile of "closing" (terminating) the connections.
  */
 class SecureConnectionsHandler
 {
