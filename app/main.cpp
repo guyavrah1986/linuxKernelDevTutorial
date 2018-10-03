@@ -10,11 +10,23 @@
 
 using namespace std;
 
+// TODO: remove after testing is done
+void testSslConnection()
+{
+	cout << "testSslConnection - start" << endl;
+	SecureConnectionsHandler secureConnectionHandler;
+	const string serverIp = "127.0.0.1";
+	const unsigned short serverPort = 4443;
+	const string certPemFile = "/home/guya/guya/dev/linuxKernelDevTutorial/httpServerForTesting/localhost.pem";
+	secureConnectionHandler.AddConnection(serverIp, serverPort, certPemFile);
+	cout << "testSslConnection - created a SecureConnectionsHandler object on the stack" << endl;
+}
+// TODO: remove after testing is done
+
 int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
-
-	SecureConnectionsHandler secureConnectionHandler;
+	testSslConnection();
 	cout << "main - end" << endl;
 }
 

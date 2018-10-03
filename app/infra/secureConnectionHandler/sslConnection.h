@@ -17,7 +17,7 @@ class SslConnection
 	NO_COPY(SslConnection);
 
 public:
-	SslConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
+	SslConnection(const std::string& connectionTupple, const std::string& certPemFile);
 	~SslConnection();
 
 private:

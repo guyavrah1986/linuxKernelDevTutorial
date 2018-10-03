@@ -11,7 +11,7 @@
  * 1) Initialize the usage in the OpenSSL libray.
  * 2) Hold all the SslConnections of the application.
  *
- * NOTE: It does not responsbile of "closing" (terminating) the connections.
+ * NOTE: It does not responsbile of "opening" NOR "closing" (terminating) the connections.
  */
 class SecureConnectionsHandler
 {
@@ -23,6 +23,11 @@ public:
 
 	bool AddConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
 
+private:
+	bool validateSslConnectionParamters(const std::string& ip , const unsigned short port) const;
+
+// members
+// -------
 private:
 	std::map<std::string, SslConnection> m_connectionsMap;
 

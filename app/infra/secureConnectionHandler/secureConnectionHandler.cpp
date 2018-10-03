@@ -1,4 +1,5 @@
 #include <glog/logging.h>
+#include <sys/stat.h>
 
 #include "openssl/bio.h"
 #include "openssl/ssl.h"
@@ -25,9 +26,39 @@ SecureConnectionsHandler::~SecureConnectionsHandler()
 
 bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port, const string& certPemFile)
 {
-	SslConnection sslConnection(ip, port, "some_cert_file_path");
+	// verify paramters
+	if(false == validateSslConnectionParamters(ip, port))
+	{
+		/* Handle invlaid SSL connection parameters */
+	    throw runtime_error("SecureConnectionsHandler::AddConnection - invalid SSL connection parameters (port and/or IP address)");
+	}
+
+	const string connectionTupple = ip + ":" + to_string(port);	// hostname:port
+	SslConnection sslConnection(connectionTupple, certPemFile);
+
 	//TODO: LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:";
 	return true;
 }
+
+bool SecureConnectionsHandler::validateSslConnectionParamters(const string& ip, const unsigned short port) const
+{
+	if (ip.empty())
+	{
+		LOG(ERROR) << "SslConnection::validateConnectionParamters - got invlaid IP address and/or port number";
+		return false;
+	}
+
+	/*
+	struct stat buffer;
+	if (stat(m_certPemFile.c_str(), &buffer) != 0)
+	{
+		LOG(ERROR) << "SslConnection::validateConnectionParamters - certification file does not exsit OR invalid";
+		return false;
+	}
+	*/
+
+	return true;
+}
+
 
 
