@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 {
 	cout << "main - start" << endl;
 
+	SecureConnectionsHandler secureConnectionHandler;
 	cout << "main - end" << endl;
 }
 

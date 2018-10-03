@@ -21,7 +21,7 @@ public:
 	SecureConnectionsHandler();
 	~SecureConnectionsHandler();
 
-	bool AddConnection(const std::string& ip, const unsigned short port);
+	bool AddConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
 
 private:
 	std::map<std::string, SslConnection> m_connectionsMap;

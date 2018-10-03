@@ -23,8 +23,9 @@ SecureConnectionsHandler::~SecureConnectionsHandler()
 	LOG(INFO) << "SecureConnectionsHandler::~SecureConnectionsHandler";
 }
 
-bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port)
+bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port, const string& certPemFile)
 {
+	SslConnection sslConnection(ip, port, "some_cert_file_path");
 	//TODO: LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:";
 	return true;
 }
