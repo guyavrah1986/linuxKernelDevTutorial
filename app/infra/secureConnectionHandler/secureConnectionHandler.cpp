@@ -8,9 +8,9 @@
 	
 using namespace std;
 
-SecureConnectionHandler::SecureConnectionHandler()
+SecureConnectionsHandler::SecureConnectionsHandler()
 {
-	LOG(INFO) << "SecureConnectionHandler::SecureConnectionHandler";
+	LOG(INFO) << "SecureConnectionsHandler::SecureConnectionsHandler";
 
 	// Initializing OpenSSL
 	SSL_load_error_strings();
@@ -18,8 +18,15 @@ SecureConnectionHandler::SecureConnectionHandler()
 	OpenSSL_add_all_algorithms();
 }
 
-SecureConnectionHandler::~SecureConnectionHandler()
+SecureConnectionsHandler::~SecureConnectionsHandler()
 {
-	LOG(INFO) << "SecureConnectionHandler::~SecureConnectionHandler";
+	LOG(INFO) << "SecureConnectionsHandler::~SecureConnectionsHandler";
 }
+
+bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port)
+{
+	//TODO: LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:";
+	return true;
+}
+
 
