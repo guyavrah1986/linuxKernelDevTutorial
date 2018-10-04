@@ -34,7 +34,7 @@ DEFAULT_KEY_FILE = "private.pem"
 
 class MyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def handle_one_request(self):
-        print("MyHandker::handle_one_request got request from client address" % self.client_address[0])
+        print("MyHandler::handle_one_request got request from client address" % self.client_address[0])
         return SimpleHTTPServer.SimpleHTTPRequestHandler.handle_one_request(self)
 
 
