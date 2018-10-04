@@ -38,7 +38,7 @@ bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned sh
 
 	// we use the [] operator and not the insert method, cause we can be sure that
 	// no two connections to the same ip:port will be present simultancely.
-	m_connectionsMap[connectionTupple] = sslConnection;
+	//m_connectionsMap.insert(make_pair<string, SslConnection>(connectionTupple, sslConnection));
 	LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:" << connectionTupple;
 	return true;
 }

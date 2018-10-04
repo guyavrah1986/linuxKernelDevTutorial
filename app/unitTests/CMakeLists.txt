@@ -43,8 +43,7 @@ file(GLOB_RECURSE PROC_DETAILES_UNIT_TESTS_SRC
 	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.h"
 	"${CMAKE_CURRENT_LIST_DIR}/procDetailesUnitTests/*.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
-        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
-)
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
 
 # ThreadWrapper unit tests sources 
 file(GLOB_RECURSE THREAD_WRAPPER_UNIT_TESTS_SRC
@@ -52,6 +51,14 @@ file(GLOB_RECURSE THREAD_WRAPPER_UNIT_TESTS_SRC
 	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/threadWrapperUnitTests/*.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
         "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
+
+# bioOperationUnitTests unit tests sources 
+file(GLOB_RECURSE BIO_OPERATION_UNIT_TESTS_SRC
+	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/bioOperationUnitTests/*.h"
+	"${CMAKE_CURRENT_LIST_DIR}/infraUnitTests/bioOperationUnitTests/*.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.h"
+        "${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c")
+
 
 # ======================================================================================================================================
 # Create dependencies libraries
@@ -68,6 +75,8 @@ add_executable(procDetailesUnitTestsExe ${PROC_DETAILES_UNIT_TESTS_SRC})
 
 add_executable(threadWrapperUnitTestsExe ${THREAD_WRAPPER_UNIT_TESTS_SRC})
 
+add_executable(bioOperationUnitTestsExe ${BIO_OPERATION_UNIT_TESTS_SRC})
+
 # ======================================================================================================================================
 # link the each executable with all relevant libraries
 # ======================================================================================================================================
@@ -77,6 +86,8 @@ target_link_libraries(procHandlerUnitTestsExe gtest gtest_main handlersLib utils
 target_link_libraries(procDetailesUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
 target_link_libraries(threadWrapperUnitTestsExe gtest gtest_main stdThreadRaiiWrapperLib utilsLib)
+
+target_link_libraries(bioOperationUnitTestsExe gtest gtest_main utilsLib)
 
 # ======================================================================================================================================
 # GTest realted settings for the unit test exe
@@ -88,6 +99,6 @@ add_test(procDetailesUnitTestsExe procDetailesUnitTestsExe)
 
 add_test(threadWrapperUnitTestsExe threadWrapperUnitTestsExe)
 
-
+add_test(bioOperationUnitTestsExe bioOperationUnitTestsExe)
 
 
