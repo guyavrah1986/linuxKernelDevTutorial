@@ -36,7 +36,10 @@ bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned sh
 	const string connectionTupple = ip + ":" + to_string(port);	// hostname:port
 	SslConnection sslConnection(connectionTupple, certPemFile);
 
-	//TODO: LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:";
+	// we use the [] operator and not the insert method, cause we can be sure that
+	// no two connections to the same ip:port will be present simultancely.
+	m_connectionsMap[connectionTupple] = sslConnection;
+	LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:" << connectionTupple;
 	return true;
 }
 
