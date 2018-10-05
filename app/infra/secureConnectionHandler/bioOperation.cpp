@@ -4,29 +4,39 @@
 
 using namespace std;
 
-
-/*
- * This function verifies that the common "basic operation's arguments" are all safe
- * to be used.
- */
-bool BioOperation::IsValidOperationArgs(BIO* bio, void* opBuff, int opLen) const
+BioOperationResultType BioOperation::HandleOperation(BIO* bio, void* opBuff, int opLen)
 {
-	LOG(INFO) << "BioOperation::IsValidOperationArgs";
-	if (bio == nullptr || opBuff == nullptr || opLen < 0)
+	LOG(INFO) << "BioOperation::HandleOperation";
+	if (false == IsValidOperation())
 	{
-		LOG(ERROR) << "BioOperation::IsValidOperationArgs - one or more of the arguments provided"
-				" to the operation is invalid";
-		return false;
+		LOG(INFO) << "BioOperation::HandleOperation - invalid operation";
+		return BioOperationResultType(SECURE_CONNECTION_BIO_OPERATION_RESULT_ERROR);
 	}
 
-	return true;
+	const size_t maxNumOfAttempts = 2;
+	unsigned char numOfAttempts = 0;
+	BioOperationResultType res;// = SECURE_CONNECTION_BIO_CONNECTION_TYPE_UNKNOWN;
+	for (size_t i = 0;;)
+	{
+		res = HandleAttempt(bio, opBuff, opLen, numOfAttempts);
+		++i;
+		if (res == SECURE_CONNECTION_BIO_OPERATION_RESULT_FAILED && i < maxNumOfAttempts)
+		{
+			LOG(INFO) << "BioOperation::HandleOperation - attempt " << i << " has failed, about to retry";
+			continue;
+		}
+
+		break;
+	}
+
+	return res;
 }
 
 BioOperationResultType BioOperation::HandleAttempt(BIO* bio, void* opBuff, int opLen, unsigned char numAttempt)
 {
 	LOG(INFO) << "BioOperation::HandleAttempt number" << numAttempt;
 
-	int bioReadRet = BIO_read(bio, opBuff, opLen);
+	int bioReadRet = PerformOperation(bio, opBuff, opLen); //BIO_read(bio, opBuff, opLen);
 	if(bioReadRet < 0)
 	{
 		LOG(INFO) << "BioOperation::HandleAttempt - attempt " << ++numAttempt << " failed";
@@ -57,4 +67,20 @@ BioOperationResultType BioOperation::HandleAttempt(BIO* bio, void* opBuff, int o
 	return BioOperationResultType(SECURE_CONNECTION_BIO_OPERATION_RESULT_SUCCESS);
 }
 
+/*
+ * This function verifies that the common "basic operation's arguments" are all safe
+ * to be used.
+ */
+bool BioOperation::IsValidOperationArgs(BIO* bio, void* opBuff, int opLen) const
+{
+	LOG(INFO) << "BioOperation::IsValidOperationArgs";
+	if (bio == nullptr || opBuff == nullptr || opLen < 0)
+	{
+		LOG(ERROR) << "BioOperation::IsValidOperationArgs - one or more of the arguments provided"
+				" to the operation is invalid";
+		return false;
+	}
+
+	return true;
+}
 

@@ -20,6 +20,12 @@ BioOperationResultType BioWriteOperation::HandleOperation(BIO* bio, void* opBuff
 	return res;
 }
 
+int BioWriteOperation::PerformOperation(BIO* bio, void* opBuff, int opLen)
+{
+	return BIO_write(bio, opBuff, opLen);
+}
+
+
 bool BioWriteOperation::IsValidOperation() const
 {
 	return true;

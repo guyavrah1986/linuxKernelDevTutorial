@@ -21,7 +21,7 @@ public:
 	BioReadOperation();
 	virtual ~BioReadOperation();
 
-	BioOperationResultType HandleOperation(BIO* bio, void* opBuff, int opLen) override;
+	virtual int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 	virtual bool IsValidOperation() const override;
 
 private:

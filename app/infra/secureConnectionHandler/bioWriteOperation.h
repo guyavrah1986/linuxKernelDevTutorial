@@ -12,6 +12,7 @@ public:
 	virtual ~BioWriteOperation();
 
 	BioOperationResultType HandleOperation(BIO* bio, void* opBuff, int opLen) override;
+	int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 	virtual bool IsValidOperation() const override;
 
 private:

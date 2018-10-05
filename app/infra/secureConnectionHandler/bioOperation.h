@@ -48,12 +48,13 @@ public:
 		LOG(INFO) << "BioOperation::~BioOperation";
 	}
 
-	virtual BioOperationResultType HandleOperation(BIO* bio, void* opBuff, int opLen) = 0;
+	virtual int PerformOperation(BIO* bio, void* opBuff, int opLen) = 0;
 	virtual bool IsValidOperation() const = 0;
 
 protected:
-	bool IsValidOperationArgs(BIO* bio, void* opBuff, int opLen) const;
+	virtual BioOperationResultType HandleOperation(BIO* bio, void* opBuff, int opLen);
 	BioOperationResultType HandleAttempt(BIO* bio, void* opBuff, int opLen, unsigned char numAttempt);
+	bool IsValidOperationArgs(BIO* bio, void* opBuff, int opLen) const;
 
 
 // members
