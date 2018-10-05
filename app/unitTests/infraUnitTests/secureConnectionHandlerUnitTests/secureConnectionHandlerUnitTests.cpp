@@ -1,7 +1,8 @@
 #include <glog/logging.h>
 
-#include "../mallocAndFreeWrappersForUnitTests/mallocAndFreeWrappers.c"
+#include "mallocAndFreeWrappers.c"
 #include "secureConnectionHandlerUnitTests.h"
+#include "secureConnectionHandler.h"
 #include "utils.h"
 
 using namespace std;
@@ -51,9 +52,10 @@ void SecureConnectionHandlerUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
-TEST_F(SecureConnectionHandlerUnitTests, test1)
+TEST_F(SecureConnectionHandlerUnitTests, verifyAddConnectionFailsUponInvalidArguments)
 {
 	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
+	SecureConnectionsHandler sec;
 
 	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }

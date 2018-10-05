@@ -22,8 +22,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # ======================================================================================================================================
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/../globalIncludeDir 
-		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers
-		    ${CMAKE_CURRENT_LIST_DIR}/../src/handlers
+		    ${CMAKE_CURRENT_LIST_DIR}/../infra/secureConnectionHandler
 		    ${CMAKE_CURRENT_LIST_DIR}/mallocAndFreeWrappersForUnitTests
 	            ${CMAKE_CURRENT_LIST_DIR})
 
@@ -97,7 +96,7 @@ target_link_libraries(threadWrapperUnitTestsExe gtest gtest_main stdThreadRaiiWr
 
 target_link_libraries(bioOperationUnitTestsExe gtest gtest_main handlersLib utilsLib)
 
-target_link_libraries(secureConnectionHandlerUnitTestsExe gtest gtest_main handlersLib utilsLib)
+target_link_libraries(secureConnectionHandlerUnitTestsExe gtest gtest_main handlersLib utilsLib infraLib)
 
 # ======================================================================================================================================
 # GTest realted settings for the unit test exe
