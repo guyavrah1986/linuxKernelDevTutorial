@@ -25,6 +25,5 @@ public:
 	virtual bool IsValidOperation() const override;
 
 private:
-	BioOperationResultType handleAttempt(BIO* bio, void* opBuff, int opLen, unsigned char numAttempt);
 
 };

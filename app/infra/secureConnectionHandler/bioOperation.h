@@ -53,6 +53,8 @@ public:
 
 protected:
 	bool IsValidOperationArgs(BIO* bio, void* opBuff, int opLen) const;
+	BioOperationResultType HandleAttempt(BIO* bio, void* opBuff, int opLen, unsigned char numAttempt);
+
 
 // members
 protected:
