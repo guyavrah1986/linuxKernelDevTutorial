@@ -20,6 +20,10 @@ public:
 	SslConnection(const std::string& connectionTupple, const std::string& certPemFile);
 	~SslConnection();
 
+	// move semantics operators
+	SslConnection(SslConnection&&) = default;
+	SslConnection& operator=(SslConnection&&) = default;
+
 private:
 	bool validateSslConnectionParamters() const;
 	bool initSslCtx();

@@ -1,5 +1,5 @@
 #include <glog/logging.h>
-#include <sys/stat.h>
+#include <fstream>
 
 #include "openssl/bio.h"
 #include "openssl/ssl.h"
@@ -27,38 +27,44 @@ SecureConnectionsHandler::~SecureConnectionsHandler()
 bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port, const string& certPemFile)
 {
 	// verify paramters
-	if(false == validateSslConnectionParamters(ip, port))
+	if(false == validateSslConnectionParamters(ip, port, certPemFile))
 	{
 		/* Handle invlaid SSL connection parameters */
 	    throw runtime_error("SecureConnectionsHandler::AddConnection - invalid SSL connection parameters (port and/or IP address)");
 	}
 
 	const string connectionTupple = ip + ":" + to_string(port);	// hostname:port
-	SslConnection sslConnection(connectionTupple, certPemFile);
 
-	// we use the [] operator and not the insert method, cause we can be sure that
-	// no two connections to the same ip:port will be present simultancely.
-	//m_connectionsMap.insert(make_pair<string, SslConnection>(connectionTupple, sslConnection));
+	// we use the insert method to verify that no "new connection with the same
+	// IP & port values is made, so that no two connections to the same ip:port
+	// will be present simultancely.
+	auto it = m_connectionsMap.insert(make_pair<string, SslConnection>(string(ip + ":" + to_string(port)), SslConnection(connectionTupple, certPemFile)));
+	if (false == it.second)
+	{
+		LOG(ERROR) << "SecureConnectionsHandler::AddConnection - trying to add a new connection"
+				" to an already hostname:port:" << connectionTupple << " exsiting connection";
+		return false;
+	}
+
 	LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:" << connectionTupple;
 	return true;
 }
 
-bool SecureConnectionsHandler::validateSslConnectionParamters(const string& ip, const unsigned short port) const
+bool SecureConnectionsHandler::validateSslConnectionParamters(const string& ip, const unsigned short port, const string& certPemFile) const
 {
-	if (ip.empty())
+	if (ip.empty() || certPemFile.empty())
 	{
-		LOG(ERROR) << "SslConnection::validateConnectionParamters - got invlaid IP address and/or port number";
+		LOG(ERROR) << "SslConnection::validateConnectionParamters - got an empty IP address or cert PEM file name";
 		return false;
 	}
 
-	/*
-	struct stat buffer;
-	if (stat(m_certPemFile.c_str(), &buffer) != 0)
+	ifstream f(certPemFile.c_str());
+	if (false == f.good())
 	{
-		LOG(ERROR) << "SslConnection::validateConnectionParamters - certification file does not exsit OR invalid";
+		LOG(ERROR) << "SslConnection::validateConnectionParamters - certification file:"
+				<< certPemFile << " does not exist";
 		return false;
 	}
-	*/
 
 	return true;
 }

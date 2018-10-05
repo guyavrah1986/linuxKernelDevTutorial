@@ -24,7 +24,7 @@ public:
 	bool AddConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
 
 private:
-	bool validateSslConnectionParamters(const std::string& ip , const unsigned short port) const;
+	bool validateSslConnectionParamters(const std::string& ip , const unsigned short port, const std::string& certPemFile) const;
 
 // members
 // -------
