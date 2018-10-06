@@ -91,5 +91,6 @@ void SslConnection::freeAllSslRelatedObjects()
 {
     BIO_free_all(m_ssl_bio);
     SSL_CTX_free(m_ssl_ctx);
+    LOG(INFO) << "SslConnection::freeAllSslRelatedObjects";
 }
 

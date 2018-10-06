@@ -6,12 +6,13 @@
 #include "sslConnection.h"
 
 /*
- * This class holds all the SSL connections that are current living in the system.
+ * This class holds an SSL connection in a "RAII fashion".
  * It's main tasks are:
  * 1) Initialize the usage in the OpenSSL libray.
- * 2) Hold all the SslConnections of the application.
+ * 2) Hold the SslConnection of the application.
  *
- * NOTE: It does not responsbile of "opening" NOR "closing" (terminating) the connections.
+ * NOTE: It does not responsbile of "opening" NOR "closing" (terminating) the connections, it
+ * is the task of the "encapsulated" std::unique_ptr<SslConnection> member.
  */
 class SecureConnectionsHandler
 {

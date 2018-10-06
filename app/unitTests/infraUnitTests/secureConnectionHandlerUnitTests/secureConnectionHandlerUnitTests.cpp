@@ -1,7 +1,6 @@
 #include <glog/logging.h>
 #include <fstream>
 
-#include "mallocAndFreeWrappers.c"
 #include "secureConnectionHandlerUnitTests.h"
 #include "secureConnectionHandler.h"
 #include "utils.h"
@@ -15,7 +14,6 @@ SecureConnectionHandlerUnitTests::SecureConnectionHandlerUnitTests()
 	cout << "SecureConnectionHandlerUnitTests::SecureConnectionHandlerUnitTests" << endl;
 	if (0 == numOfInitForGlog)
 	{
-		my_init_hook();
 		const string logFileNameFullPath = LOGS_PATH_PREFIX + string(typeid(SecureConnectionHandlerUnitTests).name());
 		if (setGlog(typeid(SecureConnectionHandlerUnitTests).name(), google::GLOG_INFO, logFileNameFullPath.c_str()).IsSuccess() == false)
 		{
@@ -53,53 +51,47 @@ void SecureConnectionHandlerUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
-void actualFunc1()
-{
-	SecureConnectionsHandler secHandler;
-}
-
 TEST_F(SecureConnectionHandlerUnitTests, verifyAddConnectionFailsUponInvalidArguments)
 {
-	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
-	actualFunc1();
+	LOG(INFO) << "SecureConnectionHandlerUnitTests::verifyAddConnectionFailsUponInvalidArguments";
+	SecureConnectionsHandler secHandler;
+
+	const string emptyStringArg = "";
+	const string pemFileName = "fakePEMFile.pem";
+	const string nonExistingPemFileName = "notExists.pem";
+	const string validPemFileName = "/home/guya/guya/dev/linuxKernelDevTutorial/httpServerForTesting/localhost.pem";
+	const string ip = "127.0.0.1";
+	const unsigned short port = 8080;
+	bool res = false;
+
+	// create a "fake" PEM file
+	ofstream pemFile(pemFileName);
+	pemFile << "ASEDCXSWEF" << endl;
+	pemFile.close();
+
+	// empty IP address string
+	res = secHandler.CreateConnection(emptyStringArg, port, pemFileName);
+	EXPECT_EQ(res, false);
+
+	// empty PEM file name
+	res = secHandler.CreateConnection(ip, port, emptyStringArg);
+	EXPECT_EQ(res, false);
+
+	// non-existing PEM file name
+	res = secHandler.CreateConnection(ip, port, nonExistingPemFileName);
+	EXPECT_EQ(res, false);
+
+	// TODO: Uncommenct this sub-test in case there is a valid
+	// server that this "clinet" can connect to
+	// valid PEM file name
 	/*
-	{
-
-
-		const string emptyStringArg = "";
-		const string pemFileName = "fakePEMFile.pem";
-		const string nonExistingPemFileName = "notExists.pem";
-		const string ip = "127.0.0.1";
-		const unsigned short port = 8080;
-
-		/*
-		// create a "fake" PEM file
-		ofstream pemFile(pemFileName);
-		pemFile << "ASEDCXSWEF" << endl;
-		pemFile.close();
-
-
-		// empty IP address string
-		bool res = secHandler.AddConnection(emptyStringArg, port, pemFileName);
-		EXPECT_EQ(res, false);
-
-		// empty PEM file name
-		res = secHandler.AddConnection(ip, port, emptyStringArg);
-		EXPECT_EQ(res, false);
-
-		// non-existing PEM file name
-		res = secHandler.AddConnection(ip, port, nonExistingPemFileName);
-		EXPECT_EQ(res, false);
-
-
-		// finally delete the file
-		int removeRes = remove(pemFileName.c_str());
-		EXPECT_EQ(removeRes, 0);
-
-	}
+	res = secHandler.CreateConnection(ip, port, validPemFileName);
+	EXPECT_EQ(res, true);
 	*/
 
-	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
+	// finally delete the file
+	int removeRes = remove(pemFileName.c_str());
+	EXPECT_EQ(removeRes, 0);
 }
 
 
