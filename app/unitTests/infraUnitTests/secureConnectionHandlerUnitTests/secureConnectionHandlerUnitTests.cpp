@@ -1,4 +1,5 @@
 #include <glog/logging.h>
+#include <fstream>
 
 #include "mallocAndFreeWrappers.c"
 #include "secureConnectionHandlerUnitTests.h"
@@ -52,10 +53,51 @@ void SecureConnectionHandlerUnitTests::TearDown()
 // GTests for this class
 // =====================================================================================================================
 
+void actualFunc1()
+{
+	SecureConnectionsHandler secHandler;
+}
+
 TEST_F(SecureConnectionHandlerUnitTests, verifyAddConnectionFailsUponInvalidArguments)
 {
 	MEM_CHECK_BEFORE_TEST(g_numBytesAllocated);
-	SecureConnectionsHandler sec;
+	actualFunc1();
+	/*
+	{
+
+
+		const string emptyStringArg = "";
+		const string pemFileName = "fakePEMFile.pem";
+		const string nonExistingPemFileName = "notExists.pem";
+		const string ip = "127.0.0.1";
+		const unsigned short port = 8080;
+
+		/*
+		// create a "fake" PEM file
+		ofstream pemFile(pemFileName);
+		pemFile << "ASEDCXSWEF" << endl;
+		pemFile.close();
+
+
+		// empty IP address string
+		bool res = secHandler.AddConnection(emptyStringArg, port, pemFileName);
+		EXPECT_EQ(res, false);
+
+		// empty PEM file name
+		res = secHandler.AddConnection(ip, port, emptyStringArg);
+		EXPECT_EQ(res, false);
+
+		// non-existing PEM file name
+		res = secHandler.AddConnection(ip, port, nonExistingPemFileName);
+		EXPECT_EQ(res, false);
+
+
+		// finally delete the file
+		int removeRes = remove(pemFileName.c_str());
+		EXPECT_EQ(removeRes, 0);
+
+	}
+	*/
 
 	MEM_CHECK_AFTER_TEST(g_numBytesAllocated);
 }

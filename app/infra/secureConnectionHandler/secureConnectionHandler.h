@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <memory>
 
 #include "globalInclude.h"
 #include "sslConnection.h"
@@ -21,7 +21,7 @@ public:
 	SecureConnectionsHandler();
 	~SecureConnectionsHandler();
 
-	bool AddConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
+	bool CreateConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
 
 private:
 	bool validateSslConnectionParamters(const std::string& ip , const unsigned short port, const std::string& certPemFile) const;
@@ -29,6 +29,5 @@ private:
 // members
 // -------
 private:
-	std::map<std::string, SslConnection> m_connectionsMap;
-
+	std::unique_ptr<SslConnection> m_conneciton;
 };

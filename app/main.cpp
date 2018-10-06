@@ -16,9 +16,9 @@ void testSslConnection()
 	cout << "testSslConnection - start" << endl;
 	SecureConnectionsHandler secureConnectionHandler;
 	const string serverIp = "127.0.0.1";
-	const unsigned short serverPort = 4443;
+	const unsigned short serverPort = 8080;
 	const string certPemFile = "/home/guya/guya/dev/linuxKernelDevTutorial/httpServerForTesting/localhost.pem";
-	secureConnectionHandler.AddConnection(serverIp, serverPort, certPemFile);
+	secureConnectionHandler.CreateConnection(serverIp, serverPort, certPemFile);
 	cout << "testSslConnection - created a SecureConnectionsHandler object on the stack" << endl;
 }
 // TODO: remove after testing is done

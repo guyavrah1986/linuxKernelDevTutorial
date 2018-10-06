@@ -13,6 +13,11 @@ SslConnection::SslConnection(const string& connectionTupple, const string& certP
 	, m_ssl_ctx(nullptr)
 	, m_ssl(nullptr)
 {
+	// Initializing OpenSSL
+	SSL_load_error_strings();
+	ERR_load_BIO_strings();
+	OpenSSL_add_all_algorithms();
+
 	if(false == initSslCtx())
 	{
 	    throw runtime_error("SslConnection::SslConnection - was unable to initialize the SSL ctx object");
@@ -31,8 +36,6 @@ SslConnection::~SslConnection()
 	freeAllSslRelatedObjects();
 	LOG(INFO) << "SslConnection::~SslConnection - successfully closed a connection to:" << m_connectoinTupple;
 }
-
-
 
 bool SslConnection::initSslCtx()
 {

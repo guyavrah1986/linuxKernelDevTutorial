@@ -12,11 +12,6 @@ using namespace std;
 SecureConnectionsHandler::SecureConnectionsHandler()
 {
 	LOG(INFO) << "SecureConnectionsHandler::SecureConnectionsHandler";
-
-	// Initializing OpenSSL
-	SSL_load_error_strings();
-	ERR_load_BIO_strings();
-	OpenSSL_add_all_algorithms();
 }
 
 SecureConnectionsHandler::~SecureConnectionsHandler()
@@ -24,28 +19,19 @@ SecureConnectionsHandler::~SecureConnectionsHandler()
 	LOG(INFO) << "SecureConnectionsHandler::~SecureConnectionsHandler";
 }
 
-bool SecureConnectionsHandler::AddConnection(const string& ip, const unsigned short port, const string& certPemFile)
+bool SecureConnectionsHandler::CreateConnection(const string& ip, const unsigned short port, const string& certPemFile)
 {
 	// verify paramters
 	if(false == validateSslConnectionParamters(ip, port, certPemFile))
 	{
 		/* Handle invlaid SSL connection parameters */
-	    throw runtime_error("SecureConnectionsHandler::AddConnection - invalid SSL connection parameters (port and/or IP address)");
+	    LOG(ERROR) << "SecureConnectionsHandler::AddConnection - invalid SSL connection parameters"
+	    		" port and/or IP address";
+	    return false;
 	}
 
 	const string connectionTupple = ip + ":" + to_string(port);	// hostname:port
-
-	// we use the insert method to verify that no "new connection with the same
-	// IP & port values is made, so that no two connections to the same ip:port
-	// will be present simultancely.
-	auto it = m_connectionsMap.insert(make_pair<string, SslConnection>(string(ip + ":" + to_string(port)), SslConnection(connectionTupple, certPemFile)));
-	if (false == it.second)
-	{
-		LOG(ERROR) << "SecureConnectionsHandler::AddConnection - trying to add a new connection"
-				" to an already hostname:port:" << connectionTupple << " exsiting connection";
-		return false;
-	}
-
+	m_conneciton = unique_ptr<SslConnection>(new SslConnection(connectionTupple, certPemFile));
 	LOG(INFO) << "SecureConnectionsHandler::AddConnection - added connection:" << connectionTupple;
 	return true;
 }
