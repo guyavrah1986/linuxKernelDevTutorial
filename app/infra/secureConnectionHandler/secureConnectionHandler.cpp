@@ -59,13 +59,17 @@ bool SecureConnectionsHandler::validateSslConnectionParamters(const string& ip, 
 int SecureConnectionsHandler::SendData(const std::string& dataToSend)
 {
 	LOG(INFO) << "SecureConnectionsHandler::SendData";
+	int writeRes = m_conneciton->Write(dataToSend);
 
+	return writeRes;
 }
 
-int SecureConnectionsHandler::ReceiveData(std::string& dataToRecive)
+int SecureConnectionsHandler::ReceiveData(vector<unsigned char>& dataToRecive)
 {
 	LOG(INFO) << "SecureConnectionsHandler::ReceiveData";
+	int readRes = m_conneciton->Read(dataToRecive);
 
+	return readRes;
 }
 
 

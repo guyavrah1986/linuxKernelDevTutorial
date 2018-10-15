@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <glog/logging.h>
+#include <unistd.h>
 
 #include "utils.h"
 #include "procHandler.h"
@@ -24,9 +25,21 @@ void testSslConnection()
 		return;
 	}
 
+	cout << "testSslConnection - SUCCESSFULLY created a SecureConnectionsHandler object on the stack" << endl;
 
 	const string getRequest = "GET / HTTP/1.1";
-	cout << "testSslConnection - created a SecureConnectionsHandler object on the stack" << endl;
+	cout << "testSslConnection - about to send:" << getRequest << " to the server" << endl;
+	int res = secureConnectionHandler.SendData(getRequest);
+	cout << "testSslConnection - sent:" << res << " bytes to the server" << endl;
+    sleep(1);
+
+	vector<unsigned char> buffToReadInto;
+	buffToReadInto.reserve(1500);
+	res = secureConnectionHandler.ReceiveData(buffToReadInto);
+	string retStr(buffToReadInto.begin(), buffToReadInto.end());
+	cout << "testSslConnection - received:" << retStr << " from the server" << endl;
+
+
 }
 // TODO: remove after testing is done
 

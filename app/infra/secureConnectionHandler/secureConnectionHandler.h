@@ -24,7 +24,7 @@ public:
 
 	bool CreateConnection(const std::string& ip, const unsigned short port, const std::string& certPemFile);
 	int SendData(const std::string& dataToSend);
-	int ReceiveData(std::string& dataToRecive);
+	int ReceiveData(std::vector<unsigned char>& dataToRecive);
 
 private:
 	bool validateSslConnectionParamters(const std::string& ip , const unsigned short port, const std::string& certPemFile) const;

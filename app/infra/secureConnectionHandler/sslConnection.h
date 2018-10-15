@@ -25,7 +25,7 @@ public:
 	SslConnection& operator=(SslConnection&&) = default;
 
 	int Write(const std::string& buffToWrite) const;
-	int Read(std::string& buffToReadInto) const;
+	int Read(std::vector<unsigned char>& buffToReadInto) const;
 
 private:
 	bool validateSslConnectionParamters() const;
@@ -44,5 +44,7 @@ private:
 	BIO* m_ssl_bio;
 	SSL_CTX* m_ssl_ctx;
 	SSL* m_ssl;
+
+	const int MAX_READ_LEN = 1500;
 
 };

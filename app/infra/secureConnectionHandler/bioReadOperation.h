@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "bioOperation.h"
 
 /*
@@ -21,8 +23,11 @@ public:
 	BioReadOperation();
 	virtual ~BioReadOperation();
 
-	virtual int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 	virtual bool IsValidOperation() const override;
+	int Read(BIO* bio, std::vector<unsigned char>& buffToReadInto);
+
+protected:
+	virtual int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 
 private:
 

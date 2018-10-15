@@ -4,6 +4,7 @@
 
 #include "sslConnection.h"
 #include "bioWriteOperation.h"
+#include "bioReadOperation.h"
 
 using namespace std;
 
@@ -83,14 +84,19 @@ bool SslConnection::initSslBio()
     return true;
 }
 
-int SslConnection::Write(const std::string& buffToWrite) const
+int SslConnection::Write(const string& buffToWrite) const
 {
 	LOG(INFO) << "SslConnection::Write";
 	BioWriteOperation writeOp;
 	return writeOp.Write(m_ssl_bio, buffToWrite);
 }
 
-
+int SslConnection::Read(vector<unsigned char>& buffToReadInto) const
+{
+	LOG(INFO) << "SslConnection::Read";
+	BioReadOperation readOperation;
+	return readOperation.Read(m_ssl_bio, buffToReadInto);
+}
 
 /*
  * BIO_free_all does just what it says: it frees the internal structure and releases all associated
