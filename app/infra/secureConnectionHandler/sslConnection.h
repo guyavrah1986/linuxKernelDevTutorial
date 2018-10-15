@@ -24,6 +24,9 @@ public:
 	SslConnection(SslConnection&&) = default;
 	SslConnection& operator=(SslConnection&&) = default;
 
+	int Write(const std::string& buffToWrite) const;
+	int Read(std::string& buffToReadInto) const;
+
 private:
 	bool validateSslConnectionParamters() const;
 	bool initSslCtx();

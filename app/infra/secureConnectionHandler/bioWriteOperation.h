@@ -11,11 +11,9 @@ public:
 	BioWriteOperation();
 	virtual ~BioWriteOperation();
 
-	BioOperationResultType HandleOperation(BIO* bio, void* opBuff, int opLen) override;
-	int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 	virtual bool IsValidOperation() const override;
+	int Write(BIO* bio, const std::string& buffToWrite);
 
-private:
-	BioOperationResultType handleAttempt(unsigned char numAttempt);
-
+protected:
+	int PerformOperation(BIO* bio, void* opBuff, int opLen) override;
 };

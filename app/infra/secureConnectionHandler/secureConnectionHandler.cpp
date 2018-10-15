@@ -6,6 +6,7 @@
 #include "openssl/err.h"
 
 #include "secureConnectionHandler.h"
+#include "bioWriteOperation.h"
 	
 using namespace std;
 
@@ -40,19 +41,31 @@ bool SecureConnectionsHandler::validateSslConnectionParamters(const string& ip, 
 {
 	if (ip.empty() || certPemFile.empty())
 	{
-		LOG(ERROR) << "SslConnection::validateConnectionParamters - got an empty IP address or cert PEM file name";
+		LOG(ERROR) << "SecureConnectionsHandler::validateConnectionParamters - got an empty IP address or cert PEM file name";
 		return false;
 	}
 
 	ifstream f(certPemFile.c_str());
 	if (false == f.good())
 	{
-		LOG(ERROR) << "SslConnection::validateConnectionParamters - certification file:"
+		LOG(ERROR) << "SecureConnectionsHandler::validateConnectionParamters - certification file:"
 				<< certPemFile << " does not exist";
 		return false;
 	}
 
 	return true;
+}
+
+int SecureConnectionsHandler::SendData(const std::string& dataToSend)
+{
+	LOG(INFO) << "SecureConnectionsHandler::SendData";
+
+}
+
+int SecureConnectionsHandler::ReceiveData(std::string& dataToRecive)
+{
+	LOG(INFO) << "SecureConnectionsHandler::ReceiveData";
+
 }
 
 

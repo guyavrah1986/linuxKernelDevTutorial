@@ -36,7 +36,7 @@ BioOperationResultType BioOperation::HandleAttempt(BIO* bio, void* opBuff, int o
 {
 	LOG(INFO) << "BioOperation::HandleAttempt number" << numAttempt;
 
-	int bioReadRet = PerformOperation(bio, opBuff, opLen); //BIO_read(bio, opBuff, opLen);
+	int bioReadRet = PerformOperation(bio, opBuff, opLen);
 	if(bioReadRet < 0)
 	{
 		LOG(INFO) << "BioOperation::HandleAttempt - attempt " << ++numAttempt << " failed";

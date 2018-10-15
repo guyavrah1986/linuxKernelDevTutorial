@@ -3,6 +3,7 @@
 #include "openssl/ssl.h"
 
 #include "sslConnection.h"
+#include "bioWriteOperation.h"
 
 using namespace std;
 
@@ -66,7 +67,7 @@ bool SslConnection::initSslBio()
     BIO_set_conn_hostname(m_ssl_bio, m_connectoinTupple.c_str());
     if(BIO_do_connect(m_ssl_bio) <= 0)
     {
-        LOG(ERROR) << "SslConnection::initSslBio -Error attempting to connect";
+        LOG(ERROR) << "SslConnection::initSslBio - Error attempting to connect:" << m_connectoinTupple;
         freeAllSslRelatedObjects();
         return false;
     }
@@ -81,6 +82,15 @@ bool SslConnection::initSslBio()
 
     return true;
 }
+
+int SslConnection::Write(const std::string& buffToWrite) const
+{
+	LOG(INFO) << "SslConnection::Write";
+	BioWriteOperation writeOp;
+	return writeOp.Write(m_ssl_bio, buffToWrite);
+}
+
+
 
 /*
  * BIO_free_all does just what it says: it frees the internal structure and releases all associated

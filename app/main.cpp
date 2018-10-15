@@ -17,8 +17,15 @@ void testSslConnection()
 	SecureConnectionsHandler secureConnectionHandler;
 	const string serverIp = "127.0.0.1";
 	const unsigned short serverPort = 8080;
-	const string certPemFile = "/home/guya/guya/dev/linuxKernelDevTutorial/httpServerForTesting/localhost.pem";
-	secureConnectionHandler.CreateConnection(serverIp, serverPort, certPemFile);
+	const string certPemFile = "/home/guya/guya/dev/linuxKernelDevTutorial/localhost.pem";
+	if (false == secureConnectionHandler.CreateConnection(serverIp, serverPort, certPemFile))
+	{
+		cout << "testSslConnection - did NOT create a SecureConnectionsHandler object on the stack, aborting" << endl;
+		return;
+	}
+
+
+	const string getRequest = "GET / HTTP/1.1";
 	cout << "testSslConnection - created a SecureConnectionsHandler object on the stack" << endl;
 }
 // TODO: remove after testing is done
