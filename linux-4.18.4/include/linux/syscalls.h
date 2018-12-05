@@ -1285,6 +1285,6 @@ static inline long ksys_truncate(const char __user *pathname, loff_t length)
 	return do_sys_truncate(pathname, length);
 }
 
-asmlinkage long sys_getProcessInfo(void);
+asmlinkage long sys_getProcessInfo(const char __user* src, char __user ** dst, long len);
 
 #endif

@@ -18,8 +18,12 @@ int main(int argc, char** argv)
 	cout << "PID is:" << pid << endl;;
 	 
 	//Call our syscall
-	long res = 0;	
-	res = syscall(MY_SYS_CALL_NR);
+	long res = 1;	
+	const char data [] = "some_data";
+	char* dst;
+	long len = sizeof(data);
+	cout << "main - data is " << len << " bytes long, &dst is at address:" << &dst << endl;
+	res = syscall(MY_SYS_CALL_NR, data, &dst, len);
 	cout << "res is:" << res << endl;
 	cout << "main - end" << endl;
 	return 0;
